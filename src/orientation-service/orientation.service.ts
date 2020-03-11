@@ -8,13 +8,21 @@ export class OrientationService {
     reorient(request: ReorientationRequest): Orientation {
         const currentIndex = this.cardinalPoints.indexOf(request.currentOrientation);
         if (request.rotation === Rotation.Right) {
-            return request.currentOrientation = currentIndex === this.cardinalPoints.length - 1
-                ? this.cardinalPoints[0]
-                : this.cardinalPoints[currentIndex + 1]
+            return this.rightwardRotation(currentIndex);
         } else {
-            return request.currentOrientation = currentIndex === 0
-                ? this.cardinalPoints[this.cardinalPoints.length - 1]
-                : this.cardinalPoints[currentIndex - 1]
+            return this.leftwardRotation(currentIndex);
         }
+    }
+
+    rightwardRotation(currentIndex: number): Orientation {
+        return currentIndex === this.cardinalPoints.length - 1
+            ? this.cardinalPoints[0]
+            : this.cardinalPoints[currentIndex + 1]
+    }
+
+    leftwardRotation(currentIndex: number): Orientation {
+        return currentIndex === 0
+            ? this.cardinalPoints[this.cardinalPoints.length - 1]
+            : this.cardinalPoints[currentIndex - 1]
     }
 }
