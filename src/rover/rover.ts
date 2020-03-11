@@ -15,7 +15,7 @@ export class Rover {
     }
 
     private affectedAxis(): keyof RoverCoordinates {
-        return [Orientation.North, Orientation.South].includes(this.position.orientation) ? "x" : "y";
+        return [Orientation.North, Orientation.South].includes(this.position.orientation) ? "y" : "x";
     }
 
 }
