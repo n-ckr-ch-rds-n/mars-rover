@@ -13,8 +13,16 @@ describe("Orientation service", () => {
     });
 
     it("Deals with rightward rotations facing North", () => {
-        const reorientationRequest = {rotation: Rotation.Right, currentOrientation: Orientation.North};
-        const newOrientation = orientationService.reorient(reorientationRequest);
-        expect(newOrientation).to.equal(Orientation.East);
+        const newOrientationByOld: Record<Orientation, Orientation> = {
+            [Orientation.North]: Orientation.East,
+            [Orientation.East]: Orientation.South,
+            [Orientation.South]: Orientation.West,
+            [Orientation.West]: Orientation.North
+        };
+        for (const orientation of Object.values(Orientation)) {
+            const reorientationRequest = {rotation: Rotation.Right, currentOrientation: orientation};
+            const newOrientation = orientationService.reorient(reorientationRequest);
+            expect(newOrientation).to.equal(newOrientationByOld[orientation as Orientation]);
+        }
     })
 });
