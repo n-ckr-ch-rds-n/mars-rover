@@ -12,4 +12,9 @@ describe("Rover", () => {
         rover = new Rover(mockPosition);
     });
 
+    it("Moves 1 degree forward if facing North", () => {
+        rover.move();
+        expect(rover.position.x).to.equal(2, "Rover should have moved forwards");
+    })
+
 });

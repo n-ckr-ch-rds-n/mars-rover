@@ -8,4 +8,8 @@ export class Rover {
         this.position = initialPosition;
     }
 
+    move() {
+        this.position.x += 1;
+    }
+
 }
