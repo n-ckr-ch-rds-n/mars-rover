@@ -2,6 +2,7 @@ import {Rover} from "./rover";
 import {expect} from "chai";
 import {Orientation} from "./orientation";
 import {Position} from "./position";
+import {Rotation} from "./rotation";
 
 describe("Rover", () => {
     let rover: Rover;
@@ -28,5 +29,11 @@ describe("Rover", () => {
         expect(rover.position.y).to.deep.equal(mockY - 1,
             "Rover coordinates not set correctly")
     });
+
+    it("Turns to the right", () => {
+        rover.turn(Rotation.Right);
+        expect(rover.position.orientation).to.equal(Orientation.East,
+            "Rover has not been reoriented in the expected way")
+    })
 
 });

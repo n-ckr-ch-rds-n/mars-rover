@@ -1,6 +1,7 @@
 import {Position} from "./position";
 import {RoverCoordinates} from "./rover.coordinates";
 import {Orientation} from "./orientation";
+import {Rotation} from "./rotation";
 
 export class Rover {
 
@@ -12,6 +13,10 @@ export class Rover {
 
     move() {
         this.position[this.affectedAxis()] += this.direction();
+    }
+
+    turn(rotation: Rotation) {
+        this.position.orientation = Orientation.East;
     }
 
     private affectedAxis(): keyof RoverCoordinates {
