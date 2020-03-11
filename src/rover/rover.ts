@@ -6,6 +6,7 @@ import {Rotation} from "./rotation";
 export class Rover {
 
     position: Position;
+    cardinalPoints: Orientation[] = [Orientation.North, Orientation.East, Orientation.South, Orientation.West];
 
     constructor(initialPosition: Position) {
         this.position = {...initialPosition};
@@ -16,7 +17,12 @@ export class Rover {
     }
 
     turn(rotation: Rotation) {
-        this.position.orientation = Orientation.East;
+        const currentIndex = this.cardinalPoints.indexOf(this.position.orientation);
+        if (rotation === Rotation.Right) {
+            this.position.orientation = currentIndex === this.cardinalPoints.length - 1
+                ? this.cardinalPoints[0]
+                : this.cardinalPoints[currentIndex + 1]
+        }
     }
 
     private affectedAxis(): keyof RoverCoordinates {
