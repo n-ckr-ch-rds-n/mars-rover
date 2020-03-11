@@ -3,18 +3,26 @@ import {expect} from "chai";
 import {Orientation} from "../orientation";
 import {Position} from "./position";
 import {Rotation} from "../rotation";
+import {OrientationService} from "../orientation-service/orientation.service";
+import {ReorientationRequest} from "../orientation-service/reorientation.request";
 
 describe("Rover", () => {
     let rover: Rover;
+    let mockOrientationService: OrientationService;
     let mockPosition: Position;
     let mockX: number;
     let mockY: number;
+    let mockOrientation: Orientation;
 
     beforeEach(() => {
         mockX = 1;
         mockY = 3;
         mockPosition = {x: mockX, y: mockY, orientation: Orientation.North};
-        rover = new Rover(mockPosition);
+        mockOrientation = Orientation.West;
+        mockOrientationService = {
+          reorient: (request: ReorientationRequest) => mockOrientation
+        } as OrientationService;
+        rover = new Rover(mockOrientationService, mockPosition);
     });
 
     it("Moves 1 degree up the y axis if facing North", () => {
@@ -30,16 +38,9 @@ describe("Rover", () => {
             "Rover coordinates not set correctly")
     });
 
-    it("Turns to the right", () => {
+    it("Rotates", () => {
         rover.turn(Rotation.Right);
-        expect(rover.position.orientation).to.equal(Orientation.East,
-            "Rover has not been reoriented in the expected way")
-    });
-
-    it("Turns to the left", () => {
-        rover.turn(Rotation.Left);
-        expect(rover.position.orientation).to.equal(Orientation.West,
-            "Rover has not been reoriented in the expected way");
+        expect(rover.position.orientation).to.equal(mockOrientation, "Rover has not been reoriented")
     });
 
 });
