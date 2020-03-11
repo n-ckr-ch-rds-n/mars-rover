@@ -1,7 +1,7 @@
 import {Position} from "./position";
 import {RoverCoordinates} from "./rover.coordinates";
-import {Orientation} from "./orientation";
-import {Rotation} from "./rotation";
+import {Orientation} from "../orientation";
+import {Rotation} from "../rotation";
 
 export class Rover {
 

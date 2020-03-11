@@ -1,8 +1,8 @@
 import {Rover} from "./rover";
 import {expect} from "chai";
-import {Orientation} from "./orientation";
+import {Orientation} from "../orientation";
 import {Position} from "./position";
-import {Rotation} from "./rotation";
+import {Rotation} from "../rotation";
 
 describe("Rover", () => {
     let rover: Rover;
