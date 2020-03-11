@@ -25,5 +25,19 @@ describe("Orientation service", () => {
             const newOrientation = orientationService.reorient(reorientationRequest);
             expect(newOrientation).to.equal(newOrientationByOld[orientation as Orientation]);
         }
+    });
+
+    it("Deals with leftward rotations", () => {
+        newOrientationByOld = {
+            [Orientation.North]: Orientation.West,
+            [Orientation.West]: Orientation.South,
+            [Orientation.South]: Orientation.East,
+            [Orientation.East]: Orientation.North
+        };
+        for (const orientation of Object.values(Orientation)) {
+            reorientationRequest = {rotation: Rotation.Left, currentOrientation: orientation};
+            const newOrientation = orientationService.reorient(reorientationRequest);
+            expect(newOrientation).to.equal(newOrientationByOld[orientation as Orientation]);
+        }
     })
 });
