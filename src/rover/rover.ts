@@ -1,24 +1,11 @@
-import {RoverCoordinates} from "./rover.coordinates";
-import {Orientation} from "./orientation";
+import {Position} from "./position";
 
 export class Rover {
 
-    private _coordinates: RoverCoordinates = {x: 0, y: 0};
-    private _orientation: Orientation = Orientation.North;
+    position: Position;
 
-    set coordinates(coordinates: RoverCoordinates) {
-        this._coordinates = coordinates;
+    constructor(initialPosition: Position) {
+        this.position = initialPosition;
     }
 
-    get coordinates(): RoverCoordinates {
-        return this._coordinates;
-    }
-
-    get orientation(): Orientation {
-        return this._orientation;
-    }
-
-    set orientation(orientation: Orientation) {
-        this._orientation = orientation;
-    }
 }

@@ -1,22 +1,15 @@
 import {Rover} from "./rover";
 import {expect} from "chai";
 import {Orientation} from "./orientation";
+import {Position} from "./position";
 
 describe("Rover", () => {
     let rover: Rover;
+    let mockPosition: Position;
 
     beforeEach(() => {
-        rover = new Rover();
+        mockPosition = {x: 1, y: 3, orientation: Orientation.North};
+        rover = new Rover(mockPosition);
     });
-
-    it("Has settable coordinates", () => {
-        rover.coordinates = {x: 1, y: 3};
-        expect(rover.coordinates).to.deep.equal({x: 1, y: 3}, "Rover coordinates incorrectly set");
-    });
-
-    it("Has a settable orientation", () => {
-        rover.orientation = Orientation.South;
-        expect(rover.orientation).to.equal(Orientation.South, "Rover orientation incorrectly set");
-    })
 
 });
