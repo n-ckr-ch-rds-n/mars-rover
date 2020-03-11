@@ -7,7 +7,7 @@ export class Rover {
     position: Position;
 
     constructor(initialPosition: Position) {
-        this.position = initialPosition;
+        this.position = {...initialPosition};
     }
 
     move() {
