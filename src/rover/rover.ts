@@ -1,4 +1,6 @@
 import {Position} from "./position";
+import {RoverCoordinates} from "./rover.coordinates";
+import {Orientation} from "./orientation";
 
 export class Rover {
 
@@ -9,7 +11,11 @@ export class Rover {
     }
 
     move() {
-        this.position.x += 1;
+        this.position[this.affectedAxis()] += 1;
+    }
+
+    private affectedAxis(): keyof RoverCoordinates {
+        return [Orientation.North, Orientation.South].includes(this.position.orientation) ? "x" : "y";
     }
 
 }
