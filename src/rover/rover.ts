@@ -22,6 +22,10 @@ export class Rover {
             this.position.orientation = currentIndex === this.cardinalPoints.length - 1
                 ? this.cardinalPoints[0]
                 : this.cardinalPoints[currentIndex + 1]
+        } else if (rotation === Rotation.Left) {
+            this.position.orientation = currentIndex === 0
+                ? this.cardinalPoints[this.cardinalPoints.length - 1]
+                : this.cardinalPoints[currentIndex - 1]
         }
     }
 

@@ -34,6 +34,12 @@ describe("Rover", () => {
         rover.turn(Rotation.Right);
         expect(rover.position.orientation).to.equal(Orientation.East,
             "Rover has not been reoriented in the expected way")
-    })
+    });
+
+    it("Turns to the left", () => {
+        rover.turn(Rotation.Left);
+        expect(rover.position.orientation).to.equal(Orientation.West,
+            "Rover has not been reoriented in the expected way");
+    });
 
 });
