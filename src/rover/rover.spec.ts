@@ -10,6 +10,8 @@ describe("Rover", () => {
     let mockY: number;
 
     beforeEach(() => {
+        mockX = 1;
+        mockY = 3;
         mockPosition = {x: mockX, y: mockY, orientation: Orientation.North};
         rover = new Rover(mockPosition);
     });
@@ -17,11 +19,14 @@ describe("Rover", () => {
     it("Moves 1 degree up the y axis if facing North", () => {
         rover.move();
         expect(rover.position).to.deep.equal({...mockPosition, y: mockY + 1},
-            "Rover should have moved forwards");
+            "Rover coordinates not set correctly");
     });
 
-    it("Moves a degree down the y axis if facing North", () => {
-
+    it("Moves a degree down the y axis if facing South", () => {
+        rover.position.orientation = Orientation.South;
+        rover.move();
+        expect(rover.position.y).to.deep.equal(mockY - 1,
+            "Rover coordinates not set correctly")
     });
 
 });

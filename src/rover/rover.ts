@@ -11,11 +11,15 @@ export class Rover {
     }
 
     move() {
-        this.position[this.affectedAxis()] += 1;
+        this.position[this.affectedAxis()] += this.direction();
     }
 
     private affectedAxis(): keyof RoverCoordinates {
         return [Orientation.North, Orientation.South].includes(this.position.orientation) ? "y" : "x";
+    }
+
+    private direction(): 1 | -1 {
+        return [Orientation.North, Orientation.East].includes(this.position.orientation) ? 1 : -1;
     }
 
 }
