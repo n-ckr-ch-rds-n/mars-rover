@@ -6,21 +6,22 @@ import {expect} from "chai";
 
 describe("Orientation service", () => {
     let orientationService: OrientationService;
-    let orientationRequest: ReorientationRequest;
+    let reorientationRequest: ReorientationRequest;
+    let newOrientationByOld: Record<Orientation, Orientation>;
 
     beforeEach(() => {
         orientationService = new OrientationService();
     });
 
-    it("Deals with rightward rotations facing North", () => {
-        const newOrientationByOld: Record<Orientation, Orientation> = {
+    it("Deals with rightward rotations", () => {
+        newOrientationByOld = {
             [Orientation.North]: Orientation.East,
             [Orientation.East]: Orientation.South,
             [Orientation.South]: Orientation.West,
             [Orientation.West]: Orientation.North
         };
         for (const orientation of Object.values(Orientation)) {
-            const reorientationRequest = {rotation: Rotation.Right, currentOrientation: orientation};
+            reorientationRequest = {rotation: Rotation.Right, currentOrientation: orientation};
             const newOrientation = orientationService.reorient(reorientationRequest);
             expect(newOrientation).to.equal(newOrientationByOld[orientation as Orientation]);
         }
