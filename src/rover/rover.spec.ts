@@ -5,11 +5,15 @@ import {Position} from "../position";
 import {Rotation} from "../rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
 import {ReorientationRequest} from "../orientation-service/reorientation.request";
+import {CoordinatesService} from "../coordinates-service/coordinates.service";
+import {RoverCoordinates} from "./rover.coordinates";
 
 describe("Rover", () => {
     let rover: Rover;
     let mockOrientationService: OrientationService;
+    let mockCoordinatesService: CoordinatesService;
     let mockPosition: Position;
+    let mockCoordinates: RoverCoordinates;
     let mockX: number;
     let mockY: number;
     let mockOrientation: Orientation;
@@ -22,20 +26,15 @@ describe("Rover", () => {
         mockOrientationService = {
           reorient: (request: ReorientationRequest) => mockOrientation
         } as OrientationService;
-        rover = new Rover(mockOrientationService, mockPosition);
+        mockCoordinatesService = {
+            refreshCoordinates: (currentPosition: Position) => mockCoordinates
+        } as CoordinatesService;
+        rover = new Rover(mockOrientationService, mockCoordinatesService, mockPosition);
     });
 
-    it("Moves 1 degree up the y axis if facing North", () => {
+    it("Moves", () => {
         rover.move();
-        expect(rover.position).to.deep.equal({...mockPosition, y: mockY + 1},
-            "Rover coordinates not set correctly");
-    });
-
-    it("Moves a degree down the y axis if facing South", () => {
-        rover.position.orientation = Orientation.South;
-        rover.move();
-        expect(rover.position.coordinates.y).to.deep.equal(mockY - 1,
-            "Rover coordinates not set correctly")
+        expect(rover.position.coordinates).to.deep.equal(mockCoordinates, "Rover has not moved");
     });
 
     it("Rotates", () => {
