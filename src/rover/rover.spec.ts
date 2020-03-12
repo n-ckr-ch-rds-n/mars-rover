@@ -17,7 +17,7 @@ describe("Rover", () => {
     beforeEach(() => {
         mockX = 1;
         mockY = 3;
-        mockPosition = {x: mockX, y: mockY, orientation: Orientation.North};
+        mockPosition = {coordinates: {x: mockX, y: mockY}, orientation: Orientation.North};
         mockOrientation = Orientation.West;
         mockOrientationService = {
           reorient: (request: ReorientationRequest) => mockOrientation
@@ -34,7 +34,7 @@ describe("Rover", () => {
     it("Moves a degree down the y axis if facing South", () => {
         rover.position.orientation = Orientation.South;
         rover.move();
-        expect(rover.position.y).to.deep.equal(mockY - 1,
+        expect(rover.position.coordinates.y).to.deep.equal(mockY - 1,
             "Rover coordinates not set correctly")
     });
 

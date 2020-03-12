@@ -13,7 +13,7 @@ export class Rover {
     }
 
     move() {
-        this.position[this.affectedAxis()] += this.direction();
+        this.position.coordinates[this.affectedAxis()] += this.direction();
     }
 
     turn(rotation: Rotation) {
