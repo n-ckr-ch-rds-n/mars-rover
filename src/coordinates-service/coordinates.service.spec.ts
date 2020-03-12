@@ -6,14 +6,18 @@ import {expect} from "chai";
 describe("Coordinates service", () =>{
     let coordinatesService: CoordinatesService;
     let mockPosition: Position;
+    let mockX: number;
+    let mockY: number;
 
     beforeEach(() => {
+        mockX = 1;
+        mockY = 3;
         coordinatesService = new CoordinatesService();
     });
 
     it("Increases y axis value by a degree if oriented Northward", () => {
-        mockPosition = {coordinates: {x: 1, y: 2}, orientation: Orientation.North};
+        mockPosition = {coordinates: {x: mockX, y: mockY}, orientation: Orientation.North};
         const newCoordinates = coordinatesService.refreshCoordinates(mockPosition);
-        expect(newCoordinates.y).to.equal(3);
+        expect(newCoordinates.y).to.equal(mockY + 1, "Y-axis value was not increased by 1");
     })
 });
