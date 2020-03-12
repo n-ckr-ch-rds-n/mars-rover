@@ -12,8 +12,8 @@ describe("Coordinates service", () =>{
     });
 
     it("Increases y axis value by a degree if oriented Northward", () => {
-        mockPosition = {x: 1, y: 2, orientation: Orientation.North};
+        mockPosition = {coordinates: {x: 1, y: 2}, orientation: Orientation.North};
         const newCoordinates = coordinatesService.refreshCoordinates(mockPosition);
-        expect(newCoordinates.y).to.equal(mockPosition.y + 1);
+        expect(newCoordinates.y).to.equal(mockPosition.coordinates.y + 1);
     })
 });
