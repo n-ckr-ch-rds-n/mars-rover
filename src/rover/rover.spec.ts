@@ -49,7 +49,7 @@ describe("Rover", () => {
     it("Explores", () => {
         mockNavigationString = "L";
         const newPosition = rover.explore(mockNavigationString);
-        expect(newPosition.orientation).to.equal(mockCoordinates, "Exploration instruction unsuccessful");
+        expect(newPosition.orientation).to.equal(mockOrientation, "Exploration instruction unsuccessful");
     })
 
 });

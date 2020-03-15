@@ -14,6 +14,12 @@ export class Rover {
     }
 
     explore(navigationString: string): Position {
+        const instructions = navigationString.split("");
+        for (const instruction of instructions) {
+            Object.values(Rotation).includes(instruction as any)
+                ? this.turn(instruction as Rotation)
+                : this.move();
+        }
         return this.position;
     }
 
