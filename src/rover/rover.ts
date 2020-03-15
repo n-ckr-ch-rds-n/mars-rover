@@ -2,6 +2,7 @@ import {Position} from "../position";
 import {Rotation} from "../rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
+import {Instruction} from "../instruction";
 
 export class Rover {
 
@@ -13,8 +14,7 @@ export class Rover {
         this.position = {...initialPosition};
     }
 
-    explore(navigationString: string): Position {
-        const instructions = navigationString.split("");
+    explore(instructions: Instruction[]): Position {
         for (const instruction of instructions) {
             Object.values(Rotation).includes(instruction as any)
                 ? this.turn(instruction as Rotation)

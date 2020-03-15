@@ -7,6 +7,7 @@ import {OrientationService} from "../orientation-service/orientation.service";
 import {ReorientationRequest} from "../orientation-service/reorientation.request";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
 import {RoverCoordinates} from "./rover.coordinates";
+import {Movement} from "../movement";
 
 describe("Rover", () => {
     let rover: Rover;
@@ -49,14 +50,12 @@ describe("Rover", () => {
     });
 
     it("Understands orientation instructions", () => {
-        mockNavigationString = "LR";
-        const newPosition = rover.explore(mockNavigationString);
+        const newPosition = rover.explore([Rotation.Left, Rotation.Right]);
         expect(newPosition.orientation).to.equal(mockOrientation, "Rover should have reoriented");
     });
 
     it("Understands movement instructions", () => {
-       mockNavigationString = "M";
-       const newPosition = rover.explore(mockNavigationString);
+       const newPosition = rover.explore([Movement.Forward]);
        expect(newPosition.coordinates).to.deep.equal(mockCoordinates);
     });
 
