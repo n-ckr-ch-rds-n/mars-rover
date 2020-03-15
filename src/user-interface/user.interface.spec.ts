@@ -36,18 +36,9 @@ describe("User interface", () => {
     });
 
     it("Asks the user for input", async () => {
-        const userInput = await ui.requestInput(mockQuestion);
+        const input = await ui.requestInput({requestText: mockQuestion, type: InputType.Instructions});
         expect(consoleOutput).to.equal(mockQuestion, "User not asked the correct question");
-        expect(userInput).to.equal(mockUserInput, "Expected input was not retrieved");
+        expect(input).to.equal(mockValidatorResponse, "Expected input was not retrieved");
     });
-
-    it("Passes instruction input to validator for validation", async () => {
-        await ui.requestRoverInstructions();
-        expect(mockValidationRequest).to.deep.equal({input: mockUserInput, type: InputType.Instructions});
-    });
-
-    it("Requests an initial Rover position from the user", () => {
-        ui.requestInitialPosition();
-    })
 
 });

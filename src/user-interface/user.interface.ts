@@ -6,7 +6,8 @@ import {ValidatorResponse} from "../input-validator/validator.response";
 export class UserInterface {
 
     output: Record<string, string> = {
-        instructionsRequest: "Please input Rover navigation instructions. Permitted characters: L, R, M\n"
+        instructionsRequest: "Please input Rover navigation instructions. Format: 'LRMRLMM'. Permitted characters: L, R, M\n",
+        initialPositionRequest: "Please input"
     };
 
     constructor(private roverInterface: RoverInterface,
@@ -14,22 +15,14 @@ export class UserInterface {
     }
 
     async start() {
-        const roverInstructions = await this.requestRoverInstructions();
+        const roverInstructions = await this.requestInput({
+            requestText: this.output.instructionsRequest, type: InputType.Instructions
+        });
     }
 
-    async requestInitialPosition(): Promise<ValidatorResponse> {
-        const rawInput = await this.requestInput(this.output.initalPositionRequest);
-        return this.validator.validate({input: rawInput, type: InputType.InitialCoordinates});
-    }
-
-    async requestRoverInstructions(): Promise<ValidatorResponse> {
-        const rawInput = await this.requestInput(this.output.instructionsRequest);
-        return this.validator.validate({input: rawInput, type: InputType.Instructions});
-    }
-
-    async requestInput(question: string): Promise<string> {
-        const userInput = await this.roverInterface.questionAsync(question);
+    async requestInput(request: {requestText: string, type: InputType}): Promise<ValidatorResponse> {
+        const input = await this.roverInterface.questionAsync(request.requestText);
         this.roverInterface.close();
-        return(userInput);
+        return this.validator.validate({input, type: request.type});
     }
 }
