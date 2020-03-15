@@ -51,8 +51,13 @@ describe("Rover", () => {
     it("Understands orientation instructions", () => {
         mockNavigationString = "LR";
         const newPosition = rover.explore(mockNavigationString);
-        expect(newPosition.coordinates).to.deep.equal(mockInitialPosition.coordinates, "Rover should not have moved");
-        expect(newPosition.orientation).to.equal(mockOrientation, "Exploration instruction unsuccessful");
-    })
+        expect(newPosition.orientation).to.equal(mockOrientation, "Rover should have reoriented");
+    });
+
+    it("Understands movement instructions", () => {
+       mockNavigationString = "M";
+       const newPosition = rover.explore(mockNavigationString);
+       expect(newPosition.coordinates).to.deep.equal(mockCoordinates);
+    });
 
 });
