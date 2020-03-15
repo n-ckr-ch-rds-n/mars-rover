@@ -17,6 +17,11 @@ export class UserInterface {
         const roverInstructions = await this.requestRoverInstructions();
     }
 
+    async requestInitialPosition(): Promise<ValidatorResponse> {
+        const rawInput = await this.requestInput(this.output.initalPositionRequest);
+        return this.validator.validate({input: rawInput, type: InputType.InitialCoordinates});
+    }
+
     async requestRoverInstructions(): Promise<ValidatorResponse> {
         const rawInput = await this.requestInput(this.output.instructionsRequest);
         return this.validator.validate({input: rawInput, type: InputType.Instructions});

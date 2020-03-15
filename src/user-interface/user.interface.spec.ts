@@ -46,4 +46,8 @@ describe("User interface", () => {
         expect(mockValidationRequest).to.deep.equal({input: mockUserInput, type: InputType.Instructions});
     });
 
+    it("Requests an initial Rover position from the user", () => {
+        ui.requestInitialPosition();
+    })
+
 });
