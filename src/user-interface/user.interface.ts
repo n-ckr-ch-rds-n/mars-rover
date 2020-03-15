@@ -22,17 +22,20 @@ export class UserInterface {
     }
 
     async start() {
+        const roverInstructions = await this.requestInput(InputType.Instructions);
+    }
+
+    async initialiseRover() {
         const initialPosition = await this.requestInput(InputType.InitialPosition);
         if (initialPosition.valid) {
             this.rover = this.roverFactory.create(initialPosition.input as any as Position)
         }
-        const roverInstructions = await this.requestInput(InputType.Instructions);
     }
 
     async requestInput(type: InputType): Promise<ValidatorResponse> {
-        const requester = this.interfaceFactory.create();
-        const input = await requester.questionAsync(this.consoleOutput[type]);
-        requester.close();
+        const roverInterface = this.interfaceFactory.create();
+        const input = await roverInterface.questionAsync(this.consoleOutput[type]);
+        roverInterface.close();
         return this.validator.validate({input, type});
     }
 }

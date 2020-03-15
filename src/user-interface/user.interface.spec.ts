@@ -55,7 +55,7 @@ describe("User interface", () => {
     it("Creates a rover if initial position input is valid", async () => {
         mockPosition = {coordinates: {x: 1, y: 4}, orientation: Orientation.East};
         mockValidatorResponse = {input: mockPosition, valid: true};
-        await ui.start();
+        await ui.initialiseRover();
         expect(ui.rover.position).to.deep.equal(mockPosition, "Should have created a rover with an initial position");
     });
 
