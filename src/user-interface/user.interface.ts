@@ -1,6 +1,6 @@
-import rl, {Interface} from "readline";
 import {RoverInterface} from "../interface-factory/rover.interface";
 import {InputValidator} from "../input-validator/input-validator";
+import {InputType} from "../input-validator/input.type";
 
 export class UserInterface {
 
@@ -14,7 +14,7 @@ export class UserInterface {
 
     async requestRoverInstructions() {
         const rawInput = await this.requestInput(this.output.instructionsRequest);
-        const validatedInput = this.validator.validate(rawInput);
+        const validatedInput = this.validator.validate({input: rawInput, type: InputType.Instructions});
     }
 
     async requestInput(question: string): Promise<string> {

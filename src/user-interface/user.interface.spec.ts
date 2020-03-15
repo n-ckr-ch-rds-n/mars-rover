@@ -3,12 +3,15 @@ import {expect} from "chai";
 import {RoverInterface} from "../interface-factory/rover.interface";
 import {InputValidator} from "../input-validator/input-validator";
 import {ValidatorResponse} from "../input-validator/validator.response";
+import {ValidationRequest} from "../input-validator/validation.request";
+import {InputType} from "../input-validator/input.type";
 
 describe("User interface", () => {
     let ui: UserInterface;
     let mockInterface: RoverInterface;
     let mockValidator: InputValidator;
     let mockValidatorResponse: ValidatorResponse;
+    let mockValidationRequest: ValidationRequest;
     let mockUserInput: string;
     let consoleOutput: string;
     let mockQuestion: string;
@@ -24,7 +27,10 @@ describe("User interface", () => {
             close: () => {}
         } as RoverInterface;
         mockValidator = {
-            validate: () => mockValidatorResponse
+            validate: (request: ValidationRequest) => {
+                mockValidationRequest = request;
+                return mockValidatorResponse;
+            }
         };
         ui = new UserInterface(mockInterface, mockValidator);
     });
@@ -35,8 +41,9 @@ describe("User interface", () => {
         expect(userInput).to.equal(mockUserInput, "Expected input was not retrieved");
     });
 
-    it("Passes raw input to validator for validation", () => {
-
-    })
+    it("Passes instruction input to validator for validation", async () => {
+        await ui.requestRoverInstructions();
+        expect(mockValidationRequest).to.deep.equal({input: mockUserInput, type: InputType.Instructions});
+    });
 
 });
