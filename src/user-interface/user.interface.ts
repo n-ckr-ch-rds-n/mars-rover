@@ -4,8 +4,11 @@ import {InputType} from "../input-validator/input.type";
 import {ValidatorResponse} from "../input-validator/validator.response";
 import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
+import {Rover} from "../rover/rover";
 
 export class UserInterface {
+
+    rover: Rover = {} as any;
 
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
@@ -20,7 +23,7 @@ export class UserInterface {
     async start() {
         const initialPosition = await this.requestInput(InputType.InitialPosition);
         if (initialPosition.valid) {
-            this.roverFactory.create(initialPosition.input as any as Position)
+            this.rover = this.roverFactory.create(initialPosition.input as any as Position)
         }
         const roverInstructions = await this.requestInput(InputType.Instructions);
     }

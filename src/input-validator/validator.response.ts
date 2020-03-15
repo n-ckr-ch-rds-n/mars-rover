@@ -1,7 +1,7 @@
-import {Instruction} from "../rover/instruction";
+import {ValidatedInput} from "./validated.input";
 
 export interface ValidatorResponse {
-    input?: Position | Instruction[];
+    input?: ValidatedInput;
     error?: string;
     valid: boolean;
 }

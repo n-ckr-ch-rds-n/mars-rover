@@ -6,6 +6,8 @@ import {ValidatorResponse} from "../input-validator/validator.response";
 import {ValidationRequest} from "../input-validator/validation.request";
 import {InputType} from "../input-validator/input.type";
 import {RoverFactory} from "../rover-factory/rover.factory";
+import {Position} from "../rover/position";
+import {Orientation} from "../orientation-service/orientation";
 
 describe("User interface", () => {
     let ui: UserInterface;
@@ -14,6 +16,7 @@ describe("User interface", () => {
     let mockRoverFactory: RoverFactory;
     let mockValidatorResponse: ValidatorResponse;
     let mockValidationRequest: ValidationRequest;
+    let mockPosition: Position;
     let mockUserInput: string;
     let consoleOutput: string;
 
@@ -31,7 +34,9 @@ describe("User interface", () => {
                 return mockValidatorResponse;
             }
         };
-        mockRoverFactory = {} as RoverFactory;
+        mockRoverFactory = {
+            create: (initialPosition: Position) => ({position: initialPosition})
+        } as RoverFactory;
         ui = new UserInterface(mockInterface, mockValidator, mockRoverFactory);
     });
 
@@ -43,7 +48,10 @@ describe("User interface", () => {
     });
 
     it("Creates a rover if initial position input is valid", async () => {
-        const validatorResponse = await ui.requestInput(InputType.InitialPosition)
-    })
+        mockPosition = {coordinates: {x: 1, y: 4}, orientation: Orientation.East};
+        mockValidatorResponse = {input: mockPosition, valid: true};
+        await ui.start();
+        expect(ui.rover.position).to.deep.equal(mockPosition, "Should have created a rover with an initial position");
+    });
 
 });
