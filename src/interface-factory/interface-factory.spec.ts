@@ -1,4 +1,5 @@
 import {InterfaceFactory} from "./interface.factory";
+import {expect} from "chai";
 
 describe("Rover interface factory", () => {
     let factory: InterfaceFactory;
@@ -8,6 +9,8 @@ describe("Rover interface factory", () => {
     });
 
     it("Creates Mars rover interfaces", async () => {
-       factory.create();
+       const roverInterface = factory.create();
+       expect(roverInterface).to.have.property("questionAsync", "Async question method should have been defined");
+       roverInterface.close();
     })
 });

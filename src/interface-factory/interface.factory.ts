@@ -5,7 +5,7 @@ import {RoverInterface} from "./rover.interface";
 export class InterfaceFactory {
 
     create(): RoverInterface {
-        (readline.Interface.prototype.question as any)[promisify.custom] = (prompt: string) => {
+        (readline.Interface.prototype.question as any)[promisify.custom] = function(prompt: string) {
             return new Promise(resolve =>
                 readline.Interface.prototype.question.call(this, prompt, resolve),
             );
