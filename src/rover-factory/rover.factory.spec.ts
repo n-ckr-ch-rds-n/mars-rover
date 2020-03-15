@@ -19,6 +19,9 @@ describe("Rover factory", () => {
         const rover = factory.create(initialPosition);
         expect(rover.position).to.deep.equal(initialPosition,
             "Rover should have been created with an initial position");
+        for (const service of ["orientationService", "coordinatesService"]) {
+            expect(Object.keys(rover)).to.include(service, "Rover not created with necessary services");
+        }
     })
 
 });
