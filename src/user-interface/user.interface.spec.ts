@@ -39,9 +39,11 @@ describe("User interface", () => {
     });
 
     it("Asks the user for input", async () => {
-        const input = await ui.requestInput({requestText: mockQuestion, type: InputType.Instructions});
-        expect(consoleOutput).to.equal(mockQuestion, "User not asked the correct question");
-        expect(input).to.equal(mockValidatorResponse, "Expected input was not retrieved");
+        for (const inputType of Object.values(InputType)) {
+            const input = await ui.requestInput(inputType);
+            expect(consoleOutput).to.equal(ui.consoleOutput[inputType], "User not asked the correct question");
+        }
+        // expect(input).to.equal(mockValidatorResponse, "Expected input was not retrieved");
     });
 
 });
