@@ -1,5 +1,5 @@
 import {CoordinatesService} from "./coordinates.service";
-import {Orientation} from "../orientation";
+import {Orientation} from "../orientation-service/orientation";
 import {Position} from "../position";
 import {expect} from "chai";
 

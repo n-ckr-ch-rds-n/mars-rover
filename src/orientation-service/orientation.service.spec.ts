@@ -1,5 +1,5 @@
 import {OrientationService} from "./orientation.service";
-import {Orientation} from "../orientation";
+import {Orientation} from "./orientation";
 import {Rotation} from "../rotation";
 import {ReorientationRequest} from "./reorientation.request";
 import {expect} from "chai";

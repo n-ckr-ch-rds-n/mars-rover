@@ -1,5 +1,5 @@
 import {RoverCoordinates} from "./rover/rover.coordinates";
-import {Orientation} from "./orientation";
+import {Orientation} from "./orientation-service/orientation";
 
 export interface Position {
     coordinates: RoverCoordinates;

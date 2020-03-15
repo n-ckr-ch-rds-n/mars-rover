@@ -1,6 +1,6 @@
 import {RoverCoordinates} from "../rover/rover.coordinates";
 import {Position} from "../position";
-import {Orientation} from "../orientation";
+import {Orientation} from "../orientation-service/orientation";
 
 export class CoordinatesService {
 

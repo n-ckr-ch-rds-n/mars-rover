@@ -1,6 +1,6 @@
 import {Rover} from "./rover";
 import {expect} from "chai";
-import {Orientation} from "../orientation";
+import {Orientation} from "../orientation-service/orientation";
 import {Position} from "../position";
 import {Rotation} from "../rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
