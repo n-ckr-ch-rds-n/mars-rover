@@ -1,8 +1,10 @@
 import readline from "readline";
 import {promisify} from "util";
+import {RoverInterface} from "./rover.interface";
 
 export class InterfaceFactory {
-    create() {
+
+    create(): RoverInterface {
         (readline.Interface.prototype.question as any)[promisify.custom] = (prompt: string) => {
             return new Promise(resolve =>
                 readline.Interface.prototype.question.call(this, prompt, resolve),
@@ -14,6 +16,7 @@ export class InterfaceFactory {
         return readline.createInterface({
             input: process.stdin,
             output: process.stdout
-        });
+        }) as RoverInterface;
     }
+
 }
