@@ -8,12 +8,14 @@ import {InputType} from "../input-validator/input.type";
 import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
+import {InterfaceFactory} from "../interface-factory/interface.factory";
 
 describe("User interface", () => {
     let ui: UserInterface;
     let mockInterface: RoverInterface;
     let mockValidator: InputValidator;
     let mockRoverFactory: RoverFactory;
+    let mockInterfaceFactory: InterfaceFactory;
     let mockValidatorResponse: ValidatorResponse;
     let mockValidationRequest: ValidationRequest;
     let mockPosition: Position;
@@ -28,6 +30,9 @@ describe("User interface", () => {
             },
             close: () => {}
         } as RoverInterface;
+        mockInterfaceFactory = {
+            create: () => mockInterface
+        };
         mockValidator = {
             validate: (request: ValidationRequest) => {
                 mockValidationRequest = request;
@@ -37,7 +42,7 @@ describe("User interface", () => {
         mockRoverFactory = {
             create: (initialPosition: Position) => ({position: initialPosition})
         } as RoverFactory;
-        ui = new UserInterface(mockInterface, mockValidator, mockRoverFactory);
+        ui = new UserInterface(mockValidator, mockRoverFactory, mockInterfaceFactory);
     });
 
     it("Asks the user for input", async () => {
