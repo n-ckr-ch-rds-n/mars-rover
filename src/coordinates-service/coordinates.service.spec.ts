@@ -1,6 +1,6 @@
 import {CoordinatesService} from "./coordinates.service";
 import {Orientation} from "../orientation-service/orientation";
-import {Position} from "../position";
+import {Position} from "../rover/position";
 import {expect} from "chai";
 
 describe("Coordinates service", () =>{

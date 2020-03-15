@@ -1,6 +1,6 @@
 import {Rover} from "../rover/rover";
 import {OrientationService} from "../orientation-service/orientation.service";
-import {Position} from "../position";
+import {Position} from "../rover/position";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
 
 export class RoverFactory {

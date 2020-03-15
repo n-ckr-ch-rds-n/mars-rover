@@ -1,6 +1,6 @@
 import {RoverFactory} from "./rover.factory";
 import {RoverCoordinates} from "../rover/rover.coordinates";
-import {Position} from "../position";
+import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
 import {expect} from "chai";
 

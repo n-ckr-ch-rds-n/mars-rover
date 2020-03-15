@@ -1,4 +1,4 @@
-import {Position} from "../position";
+import {Position} from "./position";
 import {Rotation} from "../rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
