@@ -34,8 +34,11 @@ describe("Rover", () => {
     });
 
     it("Moves", () => {
-        rover.move();
-        expect(rover.position.coordinates).to.deep.equal(mockCoordinates, "Rover has not moved");
+        for (const coords of [{x: 3, y: 1}, {x: 2, y: 4}, {x: -1, y: 500}]) {
+            mockCoordinates = coords;
+            rover.move();
+            expect(rover.position.coordinates).to.deep.equal(mockCoordinates, "Rover has not moved");
+        }
     });
 
     it("Rotates", () => {
@@ -44,8 +47,9 @@ describe("Rover", () => {
     });
 
     it("Explores", () => {
-        mockNavigationString = "LRM";
-        rover.explore(mockNavigationString);
+        mockNavigationString = "L";
+        const newPosition = rover.explore(mockNavigationString);
+        expect(newPosition.orientation).to.equal(mockCoordinates, "Exploration instruction unsuccessful");
     })
 
 });
