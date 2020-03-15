@@ -7,7 +7,7 @@ import {OrientationService} from "../orientation-service/orientation.service";
 import {ReorientationRequest} from "../orientation-service/reorientation.request";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
 import {RoverCoordinates} from "./rover.coordinates";
-import {Movement} from "../movement";
+import {Movement} from "../coordinates-service/movement";
 
 describe("Rover", () => {
     let rover: Rover;
