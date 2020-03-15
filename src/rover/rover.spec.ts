@@ -18,7 +18,7 @@ describe("Rover", () => {
     let mockX: number;
     let mockY: number;
     let mockOrientation: Orientation;
-    let mockNavigationString: string;
+    let newPosition: Position;
 
     beforeEach(() => {
         mockX = 1;
@@ -50,13 +50,19 @@ describe("Rover", () => {
     });
 
     it("Understands orientation instructions", () => {
-        const newPosition = rover.explore([Rotation.Left, Rotation.Right]);
+        newPosition = rover.explore([Rotation.Left, Rotation.Right]);
         expect(newPosition.orientation).to.equal(mockOrientation, "Rover should have reoriented");
     });
 
     it("Understands movement instructions", () => {
-       const newPosition = rover.explore([Movement.Forward]);
+       newPosition = rover.explore([Movement.Forward]);
        expect(newPosition.coordinates).to.deep.equal(mockCoordinates);
     });
+
+    it("Understands a mixed list of instructions", () => {
+        newPosition = rover.explore([Rotation.Right, Movement.Forward, Rotation.Left]);
+        expect(newPosition.orientation).to.equal(mockOrientation, "Rover should have reoriented");
+        expect(newPosition.coordinates).to.deep.equal(mockCoordinates);
+    })
 
 });
