@@ -35,4 +35,8 @@ describe("User interface", () => {
         expect(userInput).to.equal(mockUserInput, "Expected input was not retrieved");
     })
 
+    it("Passes raw input to validator for validation", () => {
+
+    })
+
 });
