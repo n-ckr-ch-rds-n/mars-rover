@@ -9,7 +9,7 @@ import {InterfaceFactory} from "../interface-factory/interface.factory";
 
 export class UserInterface {
 
-    rover: Rover = {} as any;
+    rover: Rover | undefined;
 
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
@@ -22,13 +22,20 @@ export class UserInterface {
     }
 
     async start() {
-        const roverInstructions = await this.requestInput(InputType.Instructions);
+        while (!this.rover) {
+            this.rover = await this.initialiseRover();
+        }
+        if (this.rover.position) {
+            const roverInstructions = await this.requestInput(InputType.Instructions);
+        }
     }
 
-    async initialiseRover() {
+    async initialiseRover(): Promise<Rover | undefined> {
         const initialPosition = await this.requestInput(InputType.InitialPosition);
         if (initialPosition.valid) {
-            this.rover = this.roverFactory.create(initialPosition.input as any as Position)
+            return this.roverFactory.create(initialPosition.input as any as Position)
+        } else {
+            console.log(initialPosition.error);
         }
     }
 

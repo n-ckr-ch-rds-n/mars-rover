@@ -5,6 +5,6 @@ export class InputValidator {
     constructor() {}
 
     validate(request: ValidationRequest): ValidatorResponse{
-        return {valid: true}
+        return {valid: false, error: "ERROR"}
     }
 }
