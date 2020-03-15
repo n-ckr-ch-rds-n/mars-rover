@@ -16,11 +16,8 @@ describe("User interface", () => {
     let mockValidationRequest: ValidationRequest;
     let mockUserInput: string;
     let consoleOutput: string;
-    let mockQuestion: string;
 
     beforeEach(() => {
-        mockQuestion = "Do you foobar?";
-        mockUserInput = "Yes indeed";
         mockInterface = {
             questionAsync: async (question: string) => {
                 consoleOutput = question;
@@ -40,10 +37,13 @@ describe("User interface", () => {
 
     it("Asks the user for input", async () => {
         for (const inputType of Object.values(InputType)) {
-            const input = await ui.requestInput(inputType);
+            await ui.requestInput(inputType);
             expect(consoleOutput).to.equal(ui.consoleOutput[inputType], "User not asked the correct question");
         }
-        // expect(input).to.equal(mockValidatorResponse, "Expected input was not retrieved");
     });
+
+    it("Creates a rover if initial position input is valid", async () => {
+        const validatorResponse = await ui.requestInput(InputType.InitialPosition)
+    })
 
 });

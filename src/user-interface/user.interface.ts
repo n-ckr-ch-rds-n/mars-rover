@@ -3,12 +3,13 @@ import {InputValidator} from "../input-validator/input-validator";
 import {InputType} from "../input-validator/input.type";
 import {ValidatorResponse} from "../input-validator/validator.response";
 import {RoverFactory} from "../rover-factory/rover.factory";
+import {Position} from "../rover/position";
 
 export class UserInterface {
 
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
-        [InputType.InitialCoordinates]: "Please input initial Rover coordinates. Format: x, y, orientation. e.g. '3 5 N'\n"
+        [InputType.InitialPosition]: "Please input initial Rover coordinates. Format: x, y, orientation. e.g. '3 5 N'\n"
     };
 
     constructor(private roverInterface: RoverInterface,
@@ -17,6 +18,10 @@ export class UserInterface {
     }
 
     async start() {
+        const initialPosition = await this.requestInput(InputType.InitialPosition);
+        if (initialPosition.valid) {
+            this.roverFactory.create(initialPosition.input as any as Position)
+        }
         const roverInstructions = await this.requestInput(InputType.Instructions);
     }
 
