@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Mars Rover tech test for Thoughtworks",
   "scripts": {
-    "test": "npx ts-mocha src/**/*.spec.ts"
+    "test": "npx ts-mocha src/**/*.spec.ts",
+    "start": "npx ts-node src/start.ts"
   },
   "author": "Nick Richardson",
   "license": "ISC",
