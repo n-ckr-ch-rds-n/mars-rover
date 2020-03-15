@@ -2,7 +2,6 @@
   "name": "mars-rover",
   "version": "1.0.0",
   "description": "Mars Rover tech test for Thoughtworks",
-  "main": "index.js",
   "scripts": {
     "test": "npx ts-mocha src/**/*.spec.ts"
   },

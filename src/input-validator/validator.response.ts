@@ -1,4 +1,4 @@
-import {Instruction} from "../instruction";
+import {Instruction} from "../rover/instruction";
 
 export interface ValidatorResponse {
     input?: Instruction[];

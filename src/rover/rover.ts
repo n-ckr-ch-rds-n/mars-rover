@@ -2,7 +2,7 @@ import {Position} from "./position";
 import {Rotation} from "../orientation-service/rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
-import {Instruction} from "../instruction";
+import {Instruction} from "./instruction";
 
 export class Rover {
 
