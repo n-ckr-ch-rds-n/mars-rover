@@ -12,6 +12,10 @@ export class UserInterface {
                 private validator: InputValidator) {
     }
 
+    async start() {
+        await this.requestRoverInstructions();
+    }
+
     async requestRoverInstructions() {
         const rawInput = await this.requestInput(this.output.instructionsRequest);
         const validatedInput = this.validator.validate({input: rawInput, type: InputType.Instructions});
