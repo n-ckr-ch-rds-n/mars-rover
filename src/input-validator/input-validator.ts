@@ -1,9 +1,10 @@
 import {ValidatorResponse} from "./validator.response";
+import {ValidationRequest} from "./validation.request";
 
 export class InputValidator {
     constructor() {}
 
-    validate(input: string): ValidatorResponse{
+    validate(request: ValidationRequest): ValidatorResponse{
         return {valid: true}
     }
 }

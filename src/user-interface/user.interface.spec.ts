@@ -33,7 +33,7 @@ describe("User interface", () => {
         const userInput = await ui.requestInput(mockQuestion);
         expect(consoleOutput).to.equal(mockQuestion, "User not asked the correct question");
         expect(userInput).to.equal(mockUserInput, "Expected input was not retrieved");
-    })
+    });
 
     it("Passes raw input to validator for validation", () => {
 
