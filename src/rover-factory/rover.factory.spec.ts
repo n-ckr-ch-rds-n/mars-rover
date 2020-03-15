@@ -1,12 +1,24 @@
-import {Rover} from "../rover/rover";
 import {RoverFactory} from "./rover.factory";
+import {RoverCoordinates} from "../rover/rover.coordinates";
+import {Position} from "../position";
+import {Orientation} from "../orientation";
+import {expect} from "chai";
 
 describe("Rover factory", () => {
-
     let factory: RoverFactory;
+    let coords: RoverCoordinates;
+    let initialPosition: Position;
 
     beforeEach(() => {
+        coords = {x: 1, y: 3};
+        initialPosition = {coordinates: coords, orientation: Orientation.East};
         factory = new RoverFactory();
+    });
+
+    it("Creates Rovers", () => {
+        const rover = factory.create(initialPosition);
+        expect(rover.position).to.deep.equal(initialPosition,
+            "Rover should have been created with an initial position");
     })
 
 });
