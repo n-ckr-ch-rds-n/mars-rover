@@ -51,11 +51,13 @@ describe("Rover", () => {
 
     it("Understands orientation instructions", () => {
         newPosition = rover.explore([Rotation.Left, Rotation.Right]);
+        expect(newPosition.coordinates).to.deep.equal(mockInitialPosition.coordinates, "Rover should not have moved");
         expect(newPosition.orientation).to.equal(mockOrientation, "Rover should have reoriented");
     });
 
     it("Understands movement instructions", () => {
        newPosition = rover.explore([Movement.Forward]);
+       expect(newPosition.orientation).to.equal(mockInitialPosition.orientation, "Rover should not have reoriented")
        expect(newPosition.coordinates).to.deep.equal(mockCoordinates);
     });
 
@@ -63,6 +65,6 @@ describe("Rover", () => {
         newPosition = rover.explore([Rotation.Right, Movement.Forward, Rotation.Left]);
         expect(newPosition.orientation).to.equal(mockOrientation, "Rover should have reoriented");
         expect(newPosition.coordinates).to.deep.equal(mockCoordinates);
-    })
+    });
 
 });
