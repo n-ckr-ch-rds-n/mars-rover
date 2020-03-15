@@ -33,7 +33,7 @@ export class UserInterface {
     async initialiseRover(): Promise<Rover | undefined> {
         const initialPosition = await this.requestInput(InputType.InitialPosition);
         if (initialPosition.valid) {
-            return this.roverFactory.create(initialPosition.input as any as Position)
+            return this.roverFactory.create(initialPosition.input as Position)
         } else {
             console.log(initialPosition.error);
         }
