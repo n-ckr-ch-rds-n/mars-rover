@@ -1,4 +1,4 @@
-import {Rotation} from "../rotation";
+import {Rotation} from "./rotation";
 import {Orientation} from "./orientation";
 
 export interface ReorientationRequest {

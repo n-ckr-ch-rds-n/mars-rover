@@ -2,7 +2,7 @@ import {Rover} from "./rover";
 import {expect} from "chai";
 import {Orientation} from "../orientation-service/orientation";
 import {Position} from "./position";
-import {Rotation} from "../rotation";
+import {Rotation} from "../orientation-service/rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
 import {ReorientationRequest} from "../orientation-service/reorientation.request";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";

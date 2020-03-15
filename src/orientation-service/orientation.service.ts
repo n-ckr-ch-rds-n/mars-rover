@@ -1,6 +1,6 @@
 import {ReorientationRequest} from "./reorientation.request";
 import {Orientation} from "./orientation";
-import {Rotation} from "../rotation";
+import {Rotation} from "./rotation";
 
 export class OrientationService {
 
