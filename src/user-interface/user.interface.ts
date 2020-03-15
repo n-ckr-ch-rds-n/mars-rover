@@ -5,6 +5,7 @@ import {ValidatorResponse} from "../input-validator/validator.response";
 import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
 import {Rover} from "../rover/rover";
+import {InterfaceFactory} from "../interface-factory/interface.factory";
 
 export class UserInterface {
 
@@ -15,9 +16,9 @@ export class UserInterface {
         [InputType.InitialPosition]: "Please input initial Rover coordinates. Format: x, y, orientation. e.g. '3 5 N'\n"
     };
 
-    constructor(private roverInterface: RoverInterface,
-                private validator: InputValidator,
-                private roverFactory: RoverFactory) {
+    constructor(private validator: InputValidator,
+                private roverFactory: RoverFactory,
+                private interfaceFactory: InterfaceFactory) {
     }
 
     async start() {
@@ -29,8 +30,9 @@ export class UserInterface {
     }
 
     async requestInput(type: InputType): Promise<ValidatorResponse> {
-        const input = await this.roverInterface.questionAsync(this.consoleOutput[type]);
-        this.roverInterface.close();
+        const requester = this.interfaceFactory.create();
+        const input = await requester.questionAsync(this.consoleOutput[type]);
+        requester.close();
         return this.validator.validate({input, type});
     }
 }
