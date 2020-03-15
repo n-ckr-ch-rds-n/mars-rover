@@ -3,16 +3,17 @@ import {promisify} from "util";
 
 export class InterfaceFactory {
     create() {
-        const roverInterface = readline.createInterface({
+        (readline.Interface.prototype.question as any)[promisify.custom] = (prompt: string) => {
+            return new Promise(resolve =>
+                readline.Interface.prototype.question.call(this, prompt, resolve),
+            );
+        };
+        (readline.Interface.prototype as any).questionAsync = promisify(
+            readline.Interface.prototype.question,
+        );
+        return readline.createInterface({
             input: process.stdin,
             output: process.stdout
-        }) as any;
-        roverInterface.question[promisify.custom] = (question: string) => {
-            return new Promise((resolve) => {
-                roverInterface.question(question, resolve)
-            })
-        };
-        roverInterface.question = promisify(roverInterface.question);
-        return roverInterface;
+        });
     }
 }
