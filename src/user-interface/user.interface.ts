@@ -6,4 +6,9 @@ export class UserInterface {
     constructor(private roverInterface: RoverInterface) {
     }
 
+    async requestInput(question: string): Promise<string> {
+        const userInput = await this.roverInterface.questionAsync(question);
+        this.roverInterface.close();
+        return(userInput);
+    }
 }
