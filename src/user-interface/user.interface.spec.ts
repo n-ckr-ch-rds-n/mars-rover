@@ -1,10 +1,14 @@
 import {UserInterface} from "./user.interface";
 import {expect} from "chai";
 import {RoverInterface} from "../interface-factory/rover.interface";
+import {InputValidator} from "../input-validator/input-validator";
+import {ValidatorResponse} from "../input-validator/validator.response";
 
 describe("User interface", () => {
     let ui: UserInterface;
     let mockInterface: RoverInterface;
+    let mockValidator: InputValidator;
+    let mockValidatorResponse: ValidatorResponse;
     let mockUserInput: string;
     let consoleOutput: string;
     let mockQuestion: string;
@@ -19,7 +23,10 @@ describe("User interface", () => {
             },
             close: () => {}
         } as RoverInterface;
-        ui = new UserInterface(mockInterface);
+        mockValidator = {
+            validate: () => mockValidatorResponse
+        };
+        ui = new UserInterface(mockInterface, mockValidator);
     });
 
     it("Asks the user for input", async () => {
