@@ -5,11 +5,13 @@ import {InputValidator} from "../input-validator/input-validator";
 import {ValidatorResponse} from "../input-validator/validator.response";
 import {ValidationRequest} from "../input-validator/validation.request";
 import {InputType} from "../input-validator/input.type";
+import {RoverFactory} from "../rover-factory/rover.factory";
 
 describe("User interface", () => {
     let ui: UserInterface;
     let mockInterface: RoverInterface;
     let mockValidator: InputValidator;
+    let mockRoverFactory: RoverFactory;
     let mockValidatorResponse: ValidatorResponse;
     let mockValidationRequest: ValidationRequest;
     let mockUserInput: string;
@@ -32,7 +34,8 @@ describe("User interface", () => {
                 return mockValidatorResponse;
             }
         };
-        ui = new UserInterface(mockInterface, mockValidator);
+        mockRoverFactory = {} as RoverFactory;
+        ui = new UserInterface(mockInterface, mockValidator, mockRoverFactory);
     });
 
     it("Asks the user for input", async () => {

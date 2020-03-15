@@ -6,9 +6,9 @@ import {RoverFactory} from "../rover-factory/rover.factory";
 
 export class UserInterface {
 
-    output: Record<InputType, string> = {
-        [InputType.Instructions]: "Please input Rover navigation instructions. Format: 'LRMRLMM'. Permitted characters: L, R, M\n",
-        [InputType.InitialCoordinates]: "Please input"
+    consoleOutput: Record<InputType, string> = {
+        [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
+        [InputType.InitialCoordinates]: "Please input initial Rover coordinates. Format: x, y, orientation. e.g. '3 5 N'\n"
     };
 
     constructor(private roverInterface: RoverInterface,
@@ -21,7 +21,7 @@ export class UserInterface {
     }
 
     async requestInput(type: InputType): Promise<ValidatorResponse> {
-        const input = await this.roverInterface.questionAsync(this.output[type]);
+        const input = await this.roverInterface.questionAsync(this.consoleOutput[type]);
         this.roverInterface.close();
         return this.validator.validate({input, type});
     }
