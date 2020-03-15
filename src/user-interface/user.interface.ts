@@ -1,13 +1,9 @@
 import rl, {Interface} from "readline";
+import {RoverInterface} from "../interface-factory/rover.interface";
 
 export class UserInterface {
-    interface: Interface;
 
-    constructor() {
-        this.interface = rl.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        })
+    constructor(private roverInterface: RoverInterface) {
     }
 
 }

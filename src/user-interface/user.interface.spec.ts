@@ -1,18 +1,16 @@
 import {UserInterface} from "./user.interface";
-import rl, {Interface, ReadLineOptions} from "readline";
 import {expect} from "chai";
+import {RoverInterface} from "../interface-factory/rover.interface";
 
 describe("User interface", () => {
     let ui: UserInterface;
-    let mockInterface: Interface;
+    let mockInterface: RoverInterface;
 
     beforeEach(() => {
-        mockInterface = {} as Interface;
-        rl.createInterface = () => mockInterface;
-        ui = new UserInterface();
+        mockInterface = {
+            questionAsync: async (question: string) => "foobar"
+        } as RoverInterface;
+        ui = new UserInterface(mockInterface);
     });
 
-    it("Creates an interface on instantiation", () => {
-        expect(ui.interface).to.deep.equal(mockInterface, "Interface should have been created");
-    })
 });
