@@ -17,6 +17,7 @@ describe("Rover", () => {
     let mockX: number;
     let mockY: number;
     let mockOrientation: Orientation;
+    let mockNavigationString: string;
 
     beforeEach(() => {
         mockX = 1;
@@ -41,5 +42,10 @@ describe("Rover", () => {
         rover.turn(Rotation.Right);
         expect(rover.position.orientation).to.equal(mockOrientation, "Rover has not been reoriented")
     });
+
+    it("Explores", () => {
+        mockNavigationString = "LRM";
+        rover.explore(mockNavigationString);
+    })
 
 });

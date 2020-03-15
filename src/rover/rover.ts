@@ -13,6 +13,10 @@ export class Rover {
         this.position = {...initialPosition};
     }
 
+    explore(navigationString: string): Position {
+        return this.position;
+    }
+
     move() {
         this.position.coordinates = this.coordinatesService.refreshCoordinates(this.position);
     }
