@@ -9,6 +9,7 @@ import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
 import {InterfaceFactory} from "../interface-factory/interface.factory";
+import {Rover} from "../rover/rover";
 
 describe("User interface", () => {
     let ui: UserInterface;
@@ -23,6 +24,7 @@ describe("User interface", () => {
     let consoleOutput: string;
 
     beforeEach(() => {
+        mockPosition = {coordinates: {x: 1, y: 4}, orientation: Orientation.East};
         mockInterface = {
             questionAsync: async (question: string) => {
                 consoleOutput = question;
@@ -53,10 +55,15 @@ describe("User interface", () => {
     });
 
     it("Creates a rover if initial position input is valid", async () => {
-        mockPosition = {coordinates: {x: 1, y: 4}, orientation: Orientation.East};
         mockValidatorResponse = {input: mockPosition, valid: true};
-        await ui.initialiseRover();
-        expect(ui.rover.position).to.deep.equal(mockPosition, "Should have created a rover with an initial position");
+        const rover = await ui.initialiseRover();
+        expect((rover as Rover).position).to.deep.equal(mockPosition, "Should have created a rover with an initial position");
     });
+
+    it("Doesn't create a Rover if initial position input is invalid", async () => {
+        mockValidatorResponse = {valid: false, error: "foobar"};
+        const rover = await ui.initialiseRover();
+        expect(rover).to.equal(undefined, "Rover should not have been created")
+    })
 
 });
