@@ -12,7 +12,7 @@ describe("Rover", () => {
     let rover: Rover;
     let mockOrientationService: OrientationService;
     let mockCoordinatesService: CoordinatesService;
-    let mockPosition: Position;
+    let mockInitialPosition: Position;
     let mockCoordinates: RoverCoordinates;
     let mockX: number;
     let mockY: number;
@@ -22,7 +22,7 @@ describe("Rover", () => {
     beforeEach(() => {
         mockX = 1;
         mockY = 3;
-        mockPosition = {coordinates: {x: mockX, y: mockY}, orientation: Orientation.North};
+        mockInitialPosition = {coordinates: {x: mockX, y: mockY}, orientation: Orientation.North};
         mockOrientation = Orientation.West;
         mockOrientationService = {
           reorient: (request: ReorientationRequest) => mockOrientation
@@ -30,7 +30,7 @@ describe("Rover", () => {
         mockCoordinatesService = {
             refreshCoordinates: (currentPosition: Position) => mockCoordinates
         } as CoordinatesService;
-        rover = new Rover(mockOrientationService, mockCoordinatesService, mockPosition);
+        rover = new Rover(mockOrientationService, mockCoordinatesService, mockInitialPosition);
     });
 
     it("Moves", () => {
@@ -42,13 +42,16 @@ describe("Rover", () => {
     });
 
     it("Rotates", () => {
-        rover.turn(Rotation.Right);
-        expect(rover.position.orientation).to.equal(mockOrientation, "Rover has not been reoriented")
+        for (const rotation of Object.values(Rotation)) {
+            rover.turn(rotation);
+            expect(rover.position.orientation).to.equal(mockOrientation, "Rover has not been reoriented")
+        }
     });
 
-    it("Explores", () => {
-        mockNavigationString = "L";
+    it("Understands orientation instructions", () => {
+        mockNavigationString = "LR";
         const newPosition = rover.explore(mockNavigationString);
+        expect(newPosition.coordinates).to.deep.equal(mockInitialPosition.coordinates, "Rover should not have moved");
         expect(newPosition.orientation).to.equal(mockOrientation, "Exploration instruction unsuccessful");
     })
 
