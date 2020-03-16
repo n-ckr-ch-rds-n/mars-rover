@@ -1,12 +1,12 @@
 import {RoverFactory} from "./rover.factory";
-import {RoverCoordinates} from "../rover/rover.coordinates";
+import {Coordinates} from "../rover/rover.coordinates";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
 import {expect} from "chai";
 
 describe("Rover factory", () => {
     let factory: RoverFactory;
-    let coords: RoverCoordinates;
+    let coords: Coordinates;
     let initialPosition: Position;
 
     beforeEach(() => {

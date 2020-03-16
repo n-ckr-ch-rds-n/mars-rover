@@ -1,10 +1,10 @@
-import {RoverCoordinates} from "../rover/rover.coordinates";
+import {Coordinates} from "../rover/rover.coordinates";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
 
 export class CoordinatesService {
 
-    refreshCoordinates(currentPosition: Position): RoverCoordinates {
+    refreshCoordinates(currentPosition: Position): Coordinates {
         const affectedAxis = this.affectedAxis(currentPosition.orientation);
         const newValue = currentPosition.coordinates[affectedAxis] += this.direction(currentPosition.orientation);
         return {
@@ -13,7 +13,7 @@ export class CoordinatesService {
         };
     }
 
-    private affectedAxis(orientation: Orientation): keyof RoverCoordinates {
+    private affectedAxis(orientation: Orientation): keyof Coordinates {
         return [Orientation.North, Orientation.South].includes(orientation) ? "y" : "x";
     }
 

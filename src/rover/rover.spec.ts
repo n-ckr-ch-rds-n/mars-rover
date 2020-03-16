@@ -6,7 +6,7 @@ import {Rotation} from "../orientation-service/rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
 import {ReorientationRequest} from "../orientation-service/reorientation.request";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
-import {RoverCoordinates} from "./rover.coordinates";
+import {Coordinates} from "./rover.coordinates";
 import {Movement} from "../coordinates-service/movement";
 
 describe("Rover", () => {
@@ -14,7 +14,7 @@ describe("Rover", () => {
     let mockOrientationService: OrientationService;
     let mockCoordinatesService: CoordinatesService;
     let mockInitialPosition: Position;
-    let mockUpdatedCoordinates: RoverCoordinates;
+    let mockUpdatedCoordinates: Coordinates;
     let mockX: number;
     let mockY: number;
     let mockUpdatedOrientation: Orientation;
