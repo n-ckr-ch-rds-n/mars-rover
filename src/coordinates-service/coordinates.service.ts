@@ -2,10 +2,9 @@ import {Coordinates} from "./coordinates";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
 import {Plateau} from "../plateau/plateau";
+import {ErrorType} from "../input-validator/error.type";
 
 export class CoordinatesService {
-
-    outOfBoundsMessage: string = "Requested movement is out of bounds of the plateau";
 
     constructor(private plateau: Plateau) {}
 
@@ -19,7 +18,7 @@ export class CoordinatesService {
         if (!this.plateau.outOfBounds(refreshedCoordinates)) {
             return refreshedCoordinates
         } else {
-            throw new Error(this.outOfBoundsMessage);
+            throw new Error(ErrorType.OutOfBounds);
         }
     }
 
