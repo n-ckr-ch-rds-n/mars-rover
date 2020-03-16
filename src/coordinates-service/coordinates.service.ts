@@ -1,8 +1,11 @@
-import {Coordinates} from "../rover/rover.coordinates";
+import {Coordinates} from "./coordinates";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
+import {Plateau} from "../plateau/plateau";
 
 export class CoordinatesService {
+
+    constructor(private plateau: Plateau) {}
 
     refreshCoordinates(currentPosition: Position): Coordinates {
         const affectedAxis = this.affectedAxis(currentPosition.orientation);
