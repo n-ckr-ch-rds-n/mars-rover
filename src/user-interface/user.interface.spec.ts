@@ -60,6 +60,7 @@ describe("User interface", () => {
             } as Rover)
         } as RoverFactory;
         ui = new UserInterface(mockValidator, mockRoverFactory, mockInterfaceFactory);
+        console.log = () => {};
     });
 
     it("Asks the user for input", async () => {
