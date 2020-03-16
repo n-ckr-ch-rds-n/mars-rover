@@ -18,6 +18,11 @@ describe("Input validator", () => {
         expect(sanitised).to.deep.equal(expected, "Input was not sanitised correctly");
     });
 
+    it("Sanitisation allows for large numbers separated by spaces", () => {
+        const sanitised = validator.sanitise({input: "33 44", type: InputType.InitialPosition});
+        const expected = ["33", "44"];
+        expect(sanitised).to.deep.equal(expected, "Input was not sanitised correctly");
+    });
 
     describe("Coordinate validation", () => {
 
