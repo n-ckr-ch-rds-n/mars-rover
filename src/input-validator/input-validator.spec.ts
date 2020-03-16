@@ -14,4 +14,15 @@ describe("Input validator", () => {
         const expected = ["M", "J", "3", "T"];
         expect(sanitised).to.deep.equal(expected, "Input was not sanitised correctly");
     });
+
+
+    describe("Coordinate validation", () => {
+
+        it("Marks input as invalid if too long or short", () => {
+            const validated = validator.validateCoordinates(["3", "4", "M", "G"])
+            expect(validated.valid).to.equal(false, "Input should have been marked invalid")
+        })
+    })
+
+
 });

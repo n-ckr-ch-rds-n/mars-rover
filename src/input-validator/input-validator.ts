@@ -8,6 +8,10 @@ export class InputValidator {
         return {valid: false, error: "ERROR"}
     }
 
+    validateCoordinates(input: string[]): ValidatorResponse {
+
+    }
+
     sanitise(input: string): string[] {
         return input.replace(/[^0-9a-z]/gi, '').split("")
     }
