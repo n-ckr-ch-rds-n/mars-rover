@@ -43,8 +43,9 @@ export class UserInterface {
     async initialisePlateau(): Promise<Plateau | undefined> {
         const plateauInput = await this.requestInput(InputType.Plateau);
         if (plateauInput.valid) {
-            this.logSuccess("Plateau initialised");
-            return new Plateau(plateauInput.item as Coordinates);
+            const coords = plateauInput.item as Coordinates;
+            this.logSuccess(`Plateau initialised: {x: ${coords.x}, y: ${coords.y}}`);
+            return new Plateau(coords);
         } else {
             this.logError(plateauInput.error!)
         }
