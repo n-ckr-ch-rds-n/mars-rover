@@ -4,15 +4,19 @@ import {RoverReadline} from "./rover.readline";
 
 export class ReadlineFactory {
 
-    create(): RoverReadline {
-        (readline.Interface.prototype.question as any)[promisify.custom] = function(question: string) {
+    constructor() {
+        const interfacePrototype = readline.Interface.prototype as any;
+        interfacePrototype.question[promisify.custom] = function(question: string) {
             return new Promise(resolve =>
-                readline.Interface.prototype.question.call(this, question, resolve),
+                interfacePrototype.question.call(this, question, resolve),
             );
         };
-        (readline.Interface.prototype as any).questionAsync = promisify(
+        interfacePrototype.questionAsync = promisify(
             readline.Interface.prototype.question,
         );
+    }
+
+    create(): RoverReadline {
         return readline.createInterface({
             input: process.stdin,
             output: process.stdout
