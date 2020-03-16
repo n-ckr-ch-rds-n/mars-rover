@@ -63,8 +63,12 @@ export class UserInterface {
     async instructRover() {
         const roverInstructionsInput = await this.requestInput(InputType.Instructions);
         if (roverInstructionsInput.valid) {
-            const roverPosition = this.rover!.explore(roverInstructionsInput.item as Instruction[]);
-            console.log(`${this.colors.success}${roverPosition}${this.colors.reset}`)
+            try {
+                const roverPosition = this.rover!.explore(roverInstructionsInput.item as Instruction[]);
+                console.log(`${this.colors.success}${roverPosition}${this.colors.reset}`)
+            } catch (error) {
+                this.logError(error.message);
+            }
         } else {
             this.logError(roverInstructionsInput.error!);
         }
