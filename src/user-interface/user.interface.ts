@@ -55,8 +55,10 @@ export class UserInterface {
         const initialPositionInput = await this.requestInput(InputType.InitialPosition);
         if (initialPositionInput.valid) {
             try {
-                const rover = this.roverFactory.create({initialPosition: initialPositionInput.item as Position, plateau});
-                this.logSuccess("Rover initialised");
+                const initialPosition = initialPositionInput.item as Position;
+                const rover = this.roverFactory.create({initialPosition, plateau});
+                this.logSuccess(`Rover initialised: ` +
+                    `${initialPosition.coordinates.x} ${initialPosition.coordinates.y} ${initialPosition.orientation}`);
                 return rover;
             } catch (error) {
                 this.logError(error.message);
