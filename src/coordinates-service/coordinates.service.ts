@@ -20,7 +20,7 @@ export class CoordinatesService {
             return refreshedCoordinates
         } else {
             throw new Error(this.outOfBoundsMessage);
-        };
+        }
     }
 
     private affectedAxis(orientation: Orientation): keyof Coordinates {

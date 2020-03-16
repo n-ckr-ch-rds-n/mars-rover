@@ -1,3 +1,4 @@
 export enum ErrorType {
-    WrongLength = "Wrong length"
+    WrongLength = "Wrong number of characters in input",
+    NonNumericalCharacters = "Non-numerical characters in input"
 }

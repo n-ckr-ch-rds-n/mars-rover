@@ -20,8 +20,13 @@ describe("Input validator", () => {
 
         it("Marks input as invalid if too long or short", () => {
             const validated = validator.validateCoordinates(["3", "4", "M", "G"]);
-            expect(validated.valid).to.equal(false, "Input should have been marked invalid")
+            expect(validated.valid).to.equal(false, "Input should have been marked invalid");
         });
+
+        it("Marks input as invalid if it contains non-integer characters", () => {
+            const validated = validator.validateCoordinates(["P", "3"]);
+            expect(validated.valid).to.equal(false, "Input should have been marked invalid");
+        })
 
     })
 

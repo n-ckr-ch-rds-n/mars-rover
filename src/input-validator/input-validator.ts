@@ -15,8 +15,11 @@ export class InputValidator {
     }
 
     validateCoordinates(input: string[]): ValidatorResponse {
-        if (!this.correctLength(input, 2)) {
-            return this.toError(this.errors[ErrorType.WrongLength]);
+        const coords = input.map(char => parseInt(char, 10));
+        if (!this.correctLength(coords, 2)) {
+            return this.toError(ErrorType.WrongLength);
+        } else if (!this.allNumbers(coords)) {
+            return this.toError(ErrorType.NonNumericalCharacters)
         }
     }
 
@@ -27,11 +30,15 @@ export class InputValidator {
             .split("")
     }
 
-    toError(message: string): ValidatorResponse {
+    private toError(message: string): ValidatorResponse {
         return {valid: false, error: message};
     }
 
-    correctLength(input: string[], length: number): boolean {
+    private allNumbers(input: number[]): boolean {
+        return !input.includes(NaN);
+    }
+
+    private correctLength(input: Array<string | number>, length: number): boolean {
         return input.length === length;
     }
 }
