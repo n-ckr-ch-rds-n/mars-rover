@@ -10,8 +10,12 @@ import {Instruction} from "../rover/instruction";
 export class UserInterface {
 
     rover: Rover | undefined;
-    errorColor: string = "\x1b[31m";
-    colorReset: string = "\x1b[0m";
+
+    colors: Record<string, string> = {
+        roverPosition: "\x1b[32m",
+        error: "\x1b[31m",
+        reset: "\x1b[0m"
+    };
 
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
@@ -27,14 +31,16 @@ export class UserInterface {
         while (!this.rover) {
             this.rover = await this.initialiseRover();
         }
+        await this.instructRover();
     }
 
     async instructRover() {
         const roverInstructions = await this.requestInput(InputType.Instructions);
         if (roverInstructions.valid) {
-            this.rover!.explore(roverInstructions.input as Instruction[])
+            const roverPosition = this.rover!.explore(roverInstructions.input as Instruction[]);
+            console.log(`${roverPosition}`)
         } else {
-            console.log(roverInstructions.error);
+            this.logError(roverInstructions.error!);
         }
     }
 
@@ -43,7 +49,7 @@ export class UserInterface {
         if (initialPosition.valid) {
             return this.roverFactory.create(initialPosition.input as Position)
         } else {
-            console.log(`${this.errorColor}${initialPosition.error}${this.colorReset}`);
+            this.logError(initialPosition.error!);
         }
     }
 
@@ -52,5 +58,9 @@ export class UserInterface {
         const input = await roverInterface.questionAsync(this.consoleOutput[type]);
         roverInterface.close();
         return this.validator.validate({input, type});
+    }
+
+    logError(error: string) {
+        console.log(`${this.colors.error}${error}${this.colors.reset}`);
     }
 }
