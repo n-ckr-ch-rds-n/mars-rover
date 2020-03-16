@@ -4,10 +4,6 @@ import {ErrorType} from "./error.type";
 
 export class InputValidator {
 
-    errors: Record<ErrorType, string> = {
-        [ErrorType.WrongLength]: "Wrong number of characters in input"
-    };
-
     constructor() {}
 
     validate(request: ValidationRequest): ValidatorResponse{
@@ -20,6 +16,8 @@ export class InputValidator {
             return this.toError(ErrorType.WrongLength);
         } else if (!this.allNumbers(coords)) {
             return this.toError(ErrorType.NonNumericalCharacters)
+        } else {
+            return {valid: true, item: {x: coords[0], y: coords[1]}}
         }
     }
 
