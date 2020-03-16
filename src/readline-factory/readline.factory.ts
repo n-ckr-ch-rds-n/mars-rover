@@ -6,14 +6,13 @@ export class ReadlineFactory {
 
     constructor() {
         const interfacePrototype = readline.Interface.prototype as any;
+        // Interface prototype needs to be prepared for promisification or promisify won't work
         interfacePrototype.question[promisify.custom] = function(question: string) {
             return new Promise(resolve =>
                 interfacePrototype.question.call(this, question, resolve),
             );
         };
-        interfacePrototype.questionAsync = promisify(
-            readline.Interface.prototype.question,
-        );
+        interfacePrototype.questionAsync = promisify(readline.Interface.prototype.question);
     }
 
     create(): RoverReadline {
