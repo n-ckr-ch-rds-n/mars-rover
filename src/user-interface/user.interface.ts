@@ -53,8 +53,13 @@ export class UserInterface {
     async initialiseRover(plateau: Plateau): Promise<Rover | undefined> {
         const initialPositionInput = await this.requestInput(InputType.InitialPosition);
         if (initialPositionInput.valid) {
-            this.logSuccess("Rover initialised");
-            return this.roverFactory.create({initialPosition: initialPositionInput.item as Position, plateau})
+            try {
+                const rover = this.roverFactory.create({initialPosition: initialPositionInput.item as Position, plateau});
+                this.logSuccess("Rover initialised");
+                return rover;
+            } catch (error) {
+                this.logError(error.message);
+            }
         } else {
             this.logError(initialPositionInput.error!);
         }
