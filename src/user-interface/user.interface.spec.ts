@@ -10,6 +10,9 @@ import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
 import {InterfaceFactory} from "../interface-factory/interface.factory";
 import {Rover} from "../rover/rover";
+import {Instruction} from "../rover/instruction";
+import {Rotation} from "../orientation-service/rotation";
+import {Movement} from "../coordinates-service/movement";
 
 describe("User interface", () => {
     let ui: UserInterface;
@@ -19,6 +22,8 @@ describe("User interface", () => {
     let mockInterfaceFactory: InterfaceFactory;
     let mockValidatorResponse: ValidatorResponse;
     let mockValidationRequest: ValidationRequest;
+    let mockInstructions: Instruction[];
+    let receivedInstructions: Instruction[];
     let mockPosition: Position;
     let mockUserInput: string;
     let consoleOutput: string;
@@ -41,8 +46,12 @@ describe("User interface", () => {
                 return mockValidatorResponse;
             }
         };
+        mockValidatorResponse = {input: mockPosition, valid: true};
         mockRoverFactory = {
-            create: (initialPosition: Position) => ({position: initialPosition})
+            create: (initialPosition: Position) => ({
+                position: initialPosition,
+                explore: (instructions: Instruction[]) => {receivedInstructions = instructions}
+            } as Rover)
         } as RoverFactory;
         ui = new UserInterface(mockValidator, mockRoverFactory, mockInterfaceFactory);
     });
@@ -55,7 +64,6 @@ describe("User interface", () => {
     });
 
     it("Creates a rover if initial position input is valid", async () => {
-        mockValidatorResponse = {input: mockPosition, valid: true};
         const rover = await ui.initialiseRover();
         expect((rover as Rover).position).to.deep.equal(mockPosition, "Should have created a rover with an initial position");
     });
@@ -64,6 +72,13 @@ describe("User interface", () => {
         mockValidatorResponse = {valid: false, error: "foobar"};
         const rover = await ui.initialiseRover();
         expect(rover).to.equal(undefined, "Rover should not have been created")
+    });
+
+    it("Passes instruction input to the rover", async () => {
+        mockInstructions = [Rotation.Left, Movement.Forward];
+        mockValidatorResponse.input = mockInstructions;
+        ui.rover = await ui.initialiseRover();
+        expect(receivedInstructions).to.equal(mockInstructions);
     })
 
 });

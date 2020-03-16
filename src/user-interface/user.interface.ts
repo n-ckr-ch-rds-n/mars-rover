@@ -1,4 +1,3 @@
-import {RoverInterface} from "../interface-factory/rover.interface";
 import {InputValidator} from "../input-validator/input-validator";
 import {InputType} from "../input-validator/input.type";
 import {ValidatorResponse} from "../input-validator/validator.response";
