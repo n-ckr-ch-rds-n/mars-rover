@@ -1,6 +1,9 @@
 import {InputValidator} from "./input-validator";
 import {expect} from "chai";
 import {InputType} from "./input.type";
+import {Orientation} from "../orientation-service/orientation";
+import {Rotation} from "../orientation-service/rotation";
+import {Movement} from "../coordinates-service/movement";
 
 describe("Input validator", () => {
     let validator: InputValidator;
@@ -40,7 +43,12 @@ describe("Input validator", () => {
         it("Marks input as invalid if it contains non-orientation/rotation characters", () => {
             const validated = validator.validateInstructions(["T", "H", "L"]);
             expect(validated.valid).to.equal(false, "Input should have been marked invalid");
-        })
+        });
+
+        it("Marks valid instruction input as valid", () => {
+            const validated = validator.validateInstructions([Rotation.Left, Movement.Forward, Rotation.Right]);
+            expect(validated.valid).to.equal(true, "Input should have been marked valid");
+        });
 
     })
 });
