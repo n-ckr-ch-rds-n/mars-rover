@@ -3,6 +3,7 @@ import {ValidationRequest} from "./validation.request";
 import {ErrorType} from "./error.type";
 import {Movement} from "../coordinates-service/movement";
 import {Rotation} from "../orientation-service/rotation";
+import {Instruction} from "../rover/instruction";
 
 export class InputValidator {
 
@@ -24,6 +25,8 @@ export class InputValidator {
     validateInstructions(input: string[]): ValidatorResponse {
         if (!input.every((item) => this.isRotationOrMovement(item))) {
             return this.toError(ErrorType.NonPermittedCharacters)
+        } else {
+            return {valid: true, item: input as Instruction[]}
         }
     }
 

@@ -50,5 +50,6 @@ describe("Input validator", () => {
             expect(validated.valid).to.equal(true, "Input should have been marked valid");
         });
 
-    })
+    });
+
 });
