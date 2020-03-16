@@ -41,11 +41,13 @@ export class InputValidator {
         if (!validatedCoordinates.valid) {
             return this.toError(ErrorType.InvalidCoordinates);
         } else {
-            position.coordinates = validatedCoordinates;
+            position.coordinates = validatedCoordinates.item;
         }
         const orientation = input.pop() as Orientation;
         if (!Object.values(Orientation).includes(orientation)) {
             return this.toError(ErrorType.InvalidOrientation)
+        } else {
+            position.orientation = orientation
         }
     }
 
