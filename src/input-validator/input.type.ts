@@ -1,4 +1,5 @@
 export enum InputType {
     Instructions = "Instructions",
-    InitialPosition = "InitialPosition"
+    InitialPosition = "InitialPosition",
+    Plateau = "Plateau"
 }

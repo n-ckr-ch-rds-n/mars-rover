@@ -63,6 +63,10 @@ describe("User interface", () => {
         }
     });
 
+    it("Initialises a plateau if plateau input is valid", () => {
+        const plateau = ui.initialisePlateau();
+    });
+
     it("Creates a rover if initial position input is valid", async () => {
         const rover = await ui.initialiseRover();
         expect(rover!.position).to.deep.equal(mockPosition, "Should have created a rover with an initial position");
@@ -79,7 +83,7 @@ describe("User interface", () => {
         mockValidatorResponse.input = mockInstructions;
         ui.rover = await ui.initialiseRover();
         await ui.instructRover();
-        expect(receivedInstructions).to.equal(mockInstructions);
+        expect(receivedInstructions).to.equal(mockInstructions, "Rover was not passed expected instructions");
     })
 
 });
