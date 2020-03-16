@@ -61,8 +61,13 @@ describe("Input validator", () => {
 
         it("Marks position as invalid if first two characters are not valid coordinates", () => {
             const validated = validator.validatePosition(["P", "T", "N"]);
-            expect(validated.valid).to.equal(false, "Input should hvae been marked invalid");
+            expect(validated.valid).to.equal(false, "Input should have been marked invalid");
         });
+
+        it("Marks position as invalid if thir character is not an orientation", () => {
+            const validated = validator.validatePosition(["1", "2", "X"]);
+            expect(validated.valid).to.equal(false, "Input should have been marked invalid");
+        })
     })
 
 });
