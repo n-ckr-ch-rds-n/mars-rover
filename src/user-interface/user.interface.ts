@@ -5,6 +5,7 @@ import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
 import {Rover} from "../rover/rover";
 import {InterfaceFactory} from "../interface-factory/interface.factory";
+import {Instruction} from "../rover/instruction";
 
 export class UserInterface {
 
@@ -24,8 +25,14 @@ export class UserInterface {
         while (!this.rover) {
             this.rover = await this.initialiseRover();
         }
-        if (this.rover.position) {
-            const roverInstructions = await this.requestInput(InputType.Instructions);
+    }
+
+    async instructRover() {
+        const roverInstructions = await this.requestInput(InputType.Instructions);
+        if (roverInstructions.valid) {
+            this.rover!.explore(roverInstructions.input as Instruction[])
+        } else {
+            console.log(roverInstructions.error);
         }
     }
 
