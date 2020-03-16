@@ -56,6 +56,12 @@ describe("Input validator", () => {
 
         it("Marks position as invalid if it is the wrong length", () => {
             const validated = validator.validatePosition(["1", "3", "N", "4"]);
+            expect(validated.valid).to.equal(false, "Input should have been marked invalid")
+        });
+
+        it("Marks position as invalid if first two characters are not valid coordinates", () => {
+            const validated = validator.validatePosition(["P", "T", "N"]);
+            expect(validated.valid).to.equal(false, "Input should hvae been marked invalid");
         });
     })
 

@@ -35,6 +35,10 @@ export class InputValidator {
         if (!this.correctLength(input,3)) {
             return this.toError(ErrorType.WrongLength);
         }
+        const validatedCoordinates = this.validateCoordinates(input.slice(0, 2));
+        if (!validatedCoordinates.valid) {
+            return this.toError(ErrorType.InvalidCoordinates);
+        }
     }
 
     sanitise(input: string): string[] {
@@ -49,7 +53,7 @@ export class InputValidator {
             || Object.values(Movement).includes(item as Movement);
     }
 
-    private toError(message: string): ValidatorResponse {
+    private toError(message: ErrorType): ValidatorResponse {
         return {valid: false, error: message};
     }
 
