@@ -14,6 +14,7 @@ import {Instruction} from "../rover/instruction";
 import {Rotation} from "../orientation-service/rotation";
 import {Movement} from "../coordinates-service/movement";
 import {Coordinates} from "../coordinates-service/coordinates"
+import {Plateau} from "../plateau/plateau";
 
 describe("User interface", () => {
     let ui: UserInterface;
@@ -50,8 +51,8 @@ describe("User interface", () => {
         };
         mockValidatorResponse = {item: mockPosition, valid: true};
         mockRoverFactory = {
-            create: (initialPosition: Position) => ({
-                position: initialPosition,
+            create: (request: {initialPosition: Position, plateau: Plateau}) => ({
+                position: request.initialPosition,
                 explore: (instructions: Instruction[]) => {receivedInstructions = instructions}
             } as Rover)
         } as RoverFactory;
@@ -74,20 +75,20 @@ describe("User interface", () => {
     });
 
     it("Creates a rover if initial position input is valid", async () => {
-        const rover = await ui.initialiseRover();
+        const rover = await ui.initialiseRover({} as Plateau);
         expect(rover!.position).to.deep.equal(mockPosition, "Should have created a rover with an initial position");
     });
 
     it("Doesn't create a Rover if initial position input is invalid", async () => {
         mockValidatorResponse = {valid: false, error: "foobar"};
-        const rover = await ui.initialiseRover();
+        const rover = await ui.initialiseRover({} as Plateau);
         expect(rover).to.equal(undefined, "Rover should not have been created")
     });
 
     it("Passes instruction input to the rover", async () => {
         mockInstructions = [Rotation.Left, Movement.Forward];
         mockValidatorResponse.item = mockInstructions;
-        ui.rover = await ui.initialiseRover();
+        ui.rover = await ui.initialiseRover({} as Plateau);
         await ui.instructRover();
         expect(receivedInstructions).to.equal(mockInstructions, "Rover was not passed expected instructions");
     })
