@@ -1,4 +1,5 @@
 import {ReadlineFactory} from "./readline.factory";
+import {expect} from "chai";
 
 describe("Rover interface factory", () => {
     let factory: ReadlineFactory;
@@ -7,8 +8,8 @@ describe("Rover interface factory", () => {
         factory = new ReadlineFactory();
     });
 
-    it("Creates Mars rover interfaces", async () => {
-       const roverInterface = factory.create();
-       roverInterface.close();
+    it("Creates Mars rover readline interfaces", async () => {
+       const readline = factory.create();
+       readline.close();
     })
 });
