@@ -11,4 +11,8 @@ export class Plateau {
     constructor(upperRightCoords: Coordinates) {
         this.area.upperRight = upperRightCoords
     }
+
+    outOfBounds(coords: Coordinates): boolean {
+        return true;
+    }
 }

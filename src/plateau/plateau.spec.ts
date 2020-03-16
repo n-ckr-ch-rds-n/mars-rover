@@ -9,6 +9,12 @@ describe("Plateau", () => {
             plateau = new Plateau(mockCoordinates);
             expect(plateau.area.upperRight).to.deep.equal(mockCoordinates, "Area was not initialised correctly");
         }
+    });
+
+    it("Knows when coordinates are out of bounds", () => {
+        plateau = new Plateau({x: 5, y: 5});
+        expect(plateau.outOfBounds({x: 5, y: 6})).to.equal(true,
+            "Coordinates should have been recognised as out of bounds");
     })
 
 });
