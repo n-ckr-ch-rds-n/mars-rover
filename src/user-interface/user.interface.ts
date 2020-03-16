@@ -61,8 +61,8 @@ export class UserInterface {
         if (roverInstructionsInput.valid) {
             try {
                 const roverPosition = this.rover!.explore(roverInstructionsInput.item as Instruction[]);
-                this.logSuccess(`Rover's final position:\nCoordinates: ${JSON.stringify(roverPosition.coordinates)}, `
-                    + `Orientation: ${roverPosition.orientation}`)
+                this.logSuccess(`Rover's final position: ${roverPosition.coordinates.x} ${roverPosition.coordinates.y} `
+                    + `${roverPosition.orientation}`)
             } catch (error) {
                 this.logError(error.message);
             }
