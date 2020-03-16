@@ -12,13 +12,11 @@ export class InputValidator {
 
     validateCoordinates(input: string[]): ValidatorResponse {
         const coords = input.map(char => parseInt(char, 10));
-        if (!this.correctLength(coords, 2)) {
-            return this.toError(ErrorType.WrongLength);
-        } else if (!this.allNumbers(coords)) {
-            return this.toError(ErrorType.NonNumericalCharacters)
-        } else {
-            return {valid: true, item: {x: coords[0], y: coords[1]}}
-        }
+        return !this.correctLength(coords, 2)
+            ? this.toError(ErrorType.WrongLength)
+            : !this.allNumbers(coords)
+                ? this.toError(ErrorType.NonPermittedCharacters)
+                : {valid: true, item: {x: coords[0], y: coords[1]}}
     }
 
     sanitise(input: string): string[] {
