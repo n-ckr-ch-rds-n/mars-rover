@@ -1,7 +1,5 @@
 import {InputValidator} from "./input-validator";
 import {expect} from "chai";
-import {InputType} from "./input.type";
-import {Orientation} from "../orientation-service/orientation";
 import {Rotation} from "../orientation-service/rotation";
 import {Movement} from "../coordinates-service/movement";
 

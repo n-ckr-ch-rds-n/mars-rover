@@ -49,6 +49,7 @@ export class InputValidator {
         } else {
             position.orientation = orientation
         }
+        return {valid: true, item: position};
     }
 
     sanitise(input: string): string[] {
