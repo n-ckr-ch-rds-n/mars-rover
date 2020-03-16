@@ -28,5 +28,10 @@ describe("Coordinates service", () =>{
         mockPosition = {coordinates: {x: mockX, y: mockY}, orientation: Orientation.East};
         const newCoordinates = coordinatesService.refreshCoordinates(mockPosition);
         expect(newCoordinates.x).to.equal(mockX + 1, "X-axis value was not increased by 1");
+    });
+
+    it("Throws an error if the new coordinates exceed the bounds of the plateau", () => {
+        mockPosition = {coordinates: {x: mockX, y: 5}, orientation: Orientation.North};
+        expect(coordinatesService.refreshCoordinates(mockPosition)).to.throw();
     })
 });
