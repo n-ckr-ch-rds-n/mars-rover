@@ -6,7 +6,7 @@ import {Rotation} from "../orientation-service/rotation";
 import {OrientationService} from "../orientation-service/orientation.service";
 import {ReorientationRequest} from "../orientation-service/reorientation.request";
 import {CoordinatesService} from "../coordinates-service/coordinates.service";
-import {Coordinates} from "./rover.coordinates";
+import {Coordinates} from "../coordinates-service/coordinates";
 import {Movement} from "../coordinates-service/movement";
 
 describe("Rover", () => {
