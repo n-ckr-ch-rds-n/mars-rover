@@ -13,8 +13,10 @@ describe("Plateau", () => {
 
     it("Knows when coordinates are out of bounds", () => {
         plateau = new Plateau({x: 5, y: 5});
-        expect(plateau.outOfBounds({x: 5, y: 6})).to.equal(true,
-            "Coordinates should have been recognised as out of bounds");
+        for (const coords of [{x: 5, y: 6}, {x: -1, y: 4}]) {
+            expect(plateau.outOfBounds(coords)).to.equal(true,
+                "Coordinates should have been recognised as out of bounds");
+        }
     })
 
 });

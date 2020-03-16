@@ -13,6 +13,9 @@ export class Plateau {
     }
 
     outOfBounds(coords: Coordinates): boolean {
-        return true;
+        return coords.x > this.area.upperRight.x
+            || coords.y > this.area.upperRight.y
+            || coords.x < this.area.bottomLeft.x
+            || coords.y < this.area.bottomLeft.y;
     }
 }
