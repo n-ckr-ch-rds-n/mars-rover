@@ -27,7 +27,7 @@ export class InputValidator {
         const coords = input.map(char => parseInt(char, 10));
         return !this.correctLength(coords, 2)
             ? this.toError(ErrorType.WrongLength)
-            : !this.allNumbers(coords)
+            : !this.allIntegers(coords)
                 ? this.toError(ErrorType.NonPermittedCharacters)
                 : {valid: true, item: {x: coords[0], y: coords[1]}}
     }
@@ -67,8 +67,8 @@ export class InputValidator {
         return {valid: false, error: message};
     }
 
-    private allNumbers(input: number[]): boolean {
-        return !input.includes(NaN);
+    private allIntegers(input: number[]): boolean {
+        return !input.includes(NaN) && input.every(item => Number.isInteger(item));
     }
 
     private correctLength(input: Array<string | number>, length: number): boolean {
