@@ -2,6 +2,7 @@ import {InputValidator} from "./input-validator";
 import {expect} from "chai";
 import {Rotation} from "../orientation-service/rotation";
 import {Movement} from "../coordinates-service/movement";
+import {Orientation} from "../orientation-service/orientation";
 
 describe("Input validator", () => {
     let validator: InputValidator;
@@ -70,6 +71,10 @@ describe("Input validator", () => {
         it("Valid position input passes the test", () => {
             const validated = validator.validatePosition(["1", "2", "N"]);
             expect(validated.valid).to.equal(true, "Input should have been marked valid");
+            expect(validated.item).to.deep.equal({
+                coordinates: {x: 1, y: 2},
+                orientation: Orientation.North
+            }, "Validator return unexpected validated input item")
         })
     })
 
