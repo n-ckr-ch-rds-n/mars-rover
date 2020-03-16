@@ -4,6 +4,8 @@ import {ErrorType} from "./error.type";
 import {Movement} from "../coordinates-service/movement";
 import {Rotation} from "../orientation-service/rotation";
 import {Instruction} from "../rover/instruction";
+import {Position} from "../rover/position";
+import {Orientation} from "../orientation-service/orientation";
 
 export class InputValidator {
 
@@ -31,13 +33,19 @@ export class InputValidator {
     }
 
     validatePosition(input: string[]): ValidatorResponse {
-        const position = {};
+        const position: Position = {} as any;
         if (!this.correctLength(input,3)) {
             return this.toError(ErrorType.WrongLength);
         }
         const validatedCoordinates = this.validateCoordinates(input.slice(0, 2));
         if (!validatedCoordinates.valid) {
             return this.toError(ErrorType.InvalidCoordinates);
+        } else {
+            position.coordinates = validatedCoordinates;
+        }
+        const orientation = input.pop() as Orientation;
+        if (!Object.values(Orientation).includes(orientation)) {
+            return this.toError(ErrorType.InvalidOrientation)
         }
     }
 

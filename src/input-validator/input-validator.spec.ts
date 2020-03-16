@@ -64,7 +64,7 @@ describe("Input validator", () => {
             expect(validated.valid).to.equal(false, "Input should have been marked invalid");
         });
 
-        it("Marks position as invalid if thir character is not an orientation", () => {
+        it("Marks position as invalid if third character is not an orientation", () => {
             const validated = validator.validatePosition(["1", "2", "X"]);
             expect(validated.valid).to.equal(false, "Input should have been marked invalid");
         })
