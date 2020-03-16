@@ -38,28 +38,30 @@ export class UserInterface {
     }
 
     async initialisePlateau(): Promise<Plateau | undefined> {
-        const upperRight = await this.requestInput(InputType.Plateau);
-        if (upperRight.valid) {
-            return new Plateau(upperRight.input as Coordinates);
+        const plateauInput = await this.requestInput(InputType.Plateau);
+        if (plateauInput.valid) {
+            return new Plateau(plateauInput.item as Coordinates);
+        } else {
+            this.logError(plateauInput.error!)
         }
     }
 
     async initialiseRover(): Promise<Rover | undefined> {
-        const initialPosition = await this.requestInput(InputType.InitialPosition);
-        if (initialPosition.valid) {
-            return this.roverFactory.create(initialPosition.input as Position)
+        const initialPositionInput = await this.requestInput(InputType.InitialPosition);
+        if (initialPositionInput.valid) {
+            return this.roverFactory.create(initialPositionInput.item as Position)
         } else {
-            this.logError(initialPosition.error!);
+            this.logError(initialPositionInput.error!);
         }
     }
 
     async instructRover() {
-        const roverInstructions = await this.requestInput(InputType.Instructions);
-        if (roverInstructions.valid) {
-            const roverPosition = this.rover!.explore(roverInstructions.input as Instruction[]);
+        const roverInstructionsInput = await this.requestInput(InputType.Instructions);
+        if (roverInstructionsInput.valid) {
+            const roverPosition = this.rover!.explore(roverInstructionsInput.item as Instruction[]);
             console.log(`${this.colors.success}${roverPosition}${this.colors.reset}`)
         } else {
-            this.logError(roverInstructions.error!);
+            this.logError(roverInstructionsInput.error!);
         }
     }
 

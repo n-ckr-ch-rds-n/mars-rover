@@ -46,7 +46,7 @@ describe("User interface", () => {
                 return mockValidatorResponse;
             }
         };
-        mockValidatorResponse = {input: mockPosition, valid: true};
+        mockValidatorResponse = {item: mockPosition, valid: true};
         mockRoverFactory = {
             create: (initialPosition: Position) => ({
                 position: initialPosition,
@@ -80,7 +80,7 @@ describe("User interface", () => {
 
     it("Passes instruction input to the rover", async () => {
         mockInstructions = [Rotation.Left, Movement.Forward];
-        mockValidatorResponse.input = mockInstructions;
+        mockValidatorResponse.item = mockInstructions;
         ui.rover = await ui.initialiseRover();
         await ui.instructRover();
         expect(receivedInstructions).to.equal(mockInstructions, "Rover was not passed expected instructions");

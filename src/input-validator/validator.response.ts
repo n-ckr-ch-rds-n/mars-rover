@@ -1,7 +1,7 @@
 import {ValidatedInput} from "./validated.input";
 
 export interface ValidatorResponse {
-    input?: ValidatedInput;
+    item?: ValidatedInput;
     error?: string;
     valid: boolean;
 }
