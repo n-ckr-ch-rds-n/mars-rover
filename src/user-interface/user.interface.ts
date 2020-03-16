@@ -13,6 +13,7 @@ import {Color} from "./color";
 export class UserInterface {
 
     rover: Rover | undefined;
+    fleetSize: number = 2;
 
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
@@ -30,10 +31,13 @@ export class UserInterface {
         while (!plateau) {
             plateau = await this.initialisePlateau();
         }
-        while (!this.rover) {
-            this.rover = await this.initialiseRover(plateau);
+        for (const rover of Array(this.fleetSize).fill(0)) {
+            while (!this.rover) {
+                this.rover = await this.initialiseRover(plateau);
+            }
+            await this.instructRover();
+            this.rover = undefined;
         }
-        await this.instructRover();
     }
 
     async initialisePlateau(): Promise<Plateau | undefined> {
