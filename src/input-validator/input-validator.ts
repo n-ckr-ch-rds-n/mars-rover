@@ -19,7 +19,7 @@ export class InputValidator {
     constructor() {}
 
     validate(request: ValidationRequest): ValidatorResponse {
-        const sanitisedInput = this.sanitise(request.input);
+        const sanitisedInput = this.sanitise(request);
         return this.validatorsByType[request.type](sanitisedInput);
     }
 
@@ -50,11 +50,12 @@ export class InputValidator {
                     : {valid: true, item: {coordinates: validatedCoordinates.item, orientation} as Position}
     }
 
-    sanitise(input: string): string[] {
-        return input
-            .replace(/[^0-9a-z]/gi, '')
+    sanitise(request: ValidationRequest): string[] {
+        const splitter = request.type === InputType.Instructions ? "" : " ";
+        return request.input
             .toUpperCase()
-            .split("")
+            .split(splitter)
+            .map((item: string) => item.replace(/[^0-9a-z]/gi, ''))
     }
 
     private isRotationOrMovement(item: string): boolean {
