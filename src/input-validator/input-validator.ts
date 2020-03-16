@@ -25,11 +25,9 @@ export class InputValidator {
     }
 
     validateInstructions(input: string[]): ValidatorResponse {
-        if (!input.every((item) => this.isRotationOrMovement(item))) {
-            return this.toError(ErrorType.NonPermittedCharacters)
-        } else {
-            return {valid: true, item: input as Instruction[]}
-        }
+        return !input.every((item) => this.isRotationOrMovement(item))
+            ? this.toError(ErrorType.NonPermittedCharacters)
+            : {valid: true, item: input as Instruction[]}
     }
 
     validatePosition(input: string[]): ValidatorResponse {
