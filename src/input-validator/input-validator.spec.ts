@@ -3,6 +3,7 @@ import {expect} from "chai";
 import {Rotation} from "../orientation-service/rotation";
 import {Movement} from "../coordinates-service/movement";
 import {Orientation} from "../orientation-service/orientation";
+import {InputType} from "./input.type";
 
 describe("Input validator", () => {
     let validator: InputValidator;
@@ -12,7 +13,7 @@ describe("Input validator", () => {
     });
 
     it("Sanitises string input", () => {
-        const sanitised = validator.sanitise("M j , 3  %^&T");
+        const sanitised = validator.sanitise({input: "M j , 3  %^&T", type: InputType.Instructions});
         const expected = ["M", "J", "3", "T"];
         expect(sanitised).to.deep.equal(expected, "Input was not sanitised correctly");
     });

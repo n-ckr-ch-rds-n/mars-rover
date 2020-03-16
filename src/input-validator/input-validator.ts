@@ -56,6 +56,7 @@ export class InputValidator {
             .toUpperCase()
             .split(splitter)
             .map((item: string) => item.replace(/[^0-9a-z]/gi, ''))
+            .filter((item: string) => item !== "")
     }
 
     private isRotationOrMovement(item: string): boolean {
