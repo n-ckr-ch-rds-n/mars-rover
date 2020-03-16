@@ -31,23 +31,15 @@ export class InputValidator {
     }
 
     validatePosition(input: string[]): ValidatorResponse {
-        const position: Position = {} as any;
-        if (!this.correctLength(input,3)) {
-            return this.toError(ErrorType.WrongLength);
-        }
         const validatedCoordinates = this.validateCoordinates(input.slice(0, 2));
-        if (!validatedCoordinates.valid) {
-            return this.toError(ErrorType.InvalidCoordinates);
-        } else {
-            position.coordinates = validatedCoordinates.item;
-        }
-        const orientation = input.pop() as Orientation;
-        if (!Object.values(Orientation).includes(orientation)) {
-            return this.toError(ErrorType.InvalidOrientation)
-        } else {
-            position.orientation = orientation
-        }
-        return {valid: true, item: position};
+        const orientation = input[2] as Orientation;
+        return !this.correctLength(input,3)
+            ? this.toError(ErrorType.WrongLength)
+            : !validatedCoordinates.valid
+                ? this.toError(ErrorType.InvalidCoordinates)
+                : !Object.values(Orientation).includes(orientation)
+                    ? this.toError(ErrorType.InvalidOrientation)
+                    : {valid: true, item: {coordinates: validatedCoordinates.item, orientation}}
     }
 
     sanitise(input: string): string[] {
