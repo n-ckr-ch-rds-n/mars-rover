@@ -23,7 +23,7 @@ export class UserInterface {
 
     constructor(private validator: InputValidator,
                 private roverFactory: RoverFactory,
-                private interfaceFactory: ReadlineFactory) {
+                private readlineFactory: ReadlineFactory) {
     }
 
     async start() {
@@ -81,9 +81,9 @@ export class UserInterface {
     }
 
     async requestInput(type: InputType): Promise<ValidatorResponse> {
-        const roverInterface = this.interfaceFactory.create();
-        const input = await roverInterface.questionAsync(this.consoleOutput[type]);
-        roverInterface.close();
+        const readline = this.readlineFactory.create();
+        const input = await readline.questionAsync(this.consoleOutput[type]);
+        readline.close();
         return this.validator.validate({input, type});
     }
 
