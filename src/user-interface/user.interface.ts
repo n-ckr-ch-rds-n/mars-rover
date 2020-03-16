@@ -8,16 +8,11 @@ import {InterfaceFactory} from "../interface-factory/interface.factory";
 import {Instruction} from "../rover/instruction";
 import {Plateau} from "../plateau/plateau";
 import {Coordinates} from "../coordinates-service/coordinates";
+import {Color} from "./color";
 
 export class UserInterface {
 
     rover: Rover | undefined;
-
-    colors: Record<string, string> = {
-        success: "\x1b[32m",
-        error: "\x1b[31m",
-        reset: "\x1b[0m"
-    };
 
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
@@ -44,7 +39,7 @@ export class UserInterface {
     async initialisePlateau(): Promise<Plateau | undefined> {
         const plateauInput = await this.requestInput(InputType.Plateau);
         if (plateauInput.valid) {
-            console.log(`${this.colors.success}Plateau initialised${this.colors.reset}`);
+            this.logSuccess("Plateau initialised");
             return new Plateau(plateauInput.item as Coordinates);
         } else {
             this.logError(plateauInput.error!)
@@ -65,7 +60,8 @@ export class UserInterface {
         if (roverInstructionsInput.valid) {
             try {
                 const roverPosition = this.rover!.explore(roverInstructionsInput.item as Instruction[]);
-                console.log(`${this.colors.success}${roverPosition}${this.colors.reset}`)
+                this.logSuccess(`Rover's final position:\nCoordinates: ${JSON.stringify(roverPosition.coordinates)}, `
+                    + `Orientation: ${roverPosition.orientation}`)
             } catch (error) {
                 this.logError(error.message);
             }
@@ -81,7 +77,11 @@ export class UserInterface {
         return this.validator.validate({input, type});
     }
 
-    logError(error: string) {
-        console.log(`${this.colors.error}${error}${this.colors.reset}`);
+    private logError(error: string) {
+        console.log(`${Color.Error}${error}${Color.Reset}`);
+    }
+
+    private logSuccess(message: string) {
+        console.log(`${Color.Success}${message}${Color.Reset}`);
     }
 }
