@@ -20,13 +20,18 @@ describe("Rover factory", () => {
         factory = new RoverFactory();
     });
 
-    it("Creates Rovers", () => {
+    it("Creates Rovers with an initial position", () => {
         const rover = factory.create({initialPosition, plateau: mockPlateau});
         expect(rover.position).to.deep.equal(initialPosition,
             "Rover should have been created with an initial position");
+
+    });
+
+    it("Creates Rovers with their required services", () => {
+        const rover = factory.create({initialPosition, plateau: mockPlateau});
         for (const service of ["orientationService", "coordinatesService"]) {
             expect(Object.keys(rover)).to.include(service, "Rover not created with necessary services");
         }
-    })
+    });
 
 });
