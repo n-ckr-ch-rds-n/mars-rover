@@ -31,8 +31,12 @@ export class UserInterface {
     }
 
     async start() {
+        let plateau: Plateau | undefined;
+        while (!plateau) {
+            plateau = await this.initialisePlateau();
+        }
         while (!this.rover) {
-            this.rover = await this.initialiseRover();
+            this.rover = await this.initialiseRover(plateau);
         }
         await this.instructRover();
     }
@@ -46,10 +50,10 @@ export class UserInterface {
         }
     }
 
-    async initialiseRover(): Promise<Rover | undefined> {
+    async initialiseRover(plateau: Plateau): Promise<Rover | undefined> {
         const initialPositionInput = await this.requestInput(InputType.InitialPosition);
         if (initialPositionInput.valid) {
-            return this.roverFactory.create(initialPositionInput.item as Position)
+            return this.roverFactory.create({initialPosition: initialPositionInput.item as Position, plateau})
         } else {
             this.logError(initialPositionInput.error!);
         }
