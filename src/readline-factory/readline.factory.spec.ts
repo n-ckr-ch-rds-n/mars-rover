@@ -1,10 +1,10 @@
-import {InterfaceFactory} from "./interface.factory";
+import {ReadlineFactory} from "./readline.factory";
 
 describe("Rover interface factory", () => {
-    let factory: InterfaceFactory;
+    let factory: ReadlineFactory;
 
     beforeEach(() => {
-        factory = new InterfaceFactory();
+        factory = new ReadlineFactory();
     });
 
     it("Creates Mars rover interfaces", async () => {

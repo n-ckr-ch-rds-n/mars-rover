@@ -4,7 +4,7 @@ import {ValidatorResponse} from "../input-validator/validator.response";
 import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
 import {Rover} from "../rover/rover";
-import {InterfaceFactory} from "../interface-factory/interface.factory";
+import {ReadlineFactory} from "../readline-factory/readline.factory";
 import {Instruction} from "../rover/instruction";
 import {Plateau} from "../plateau/plateau";
 import {Coordinates} from "../coordinates-service/coordinates";
@@ -23,7 +23,7 @@ export class UserInterface {
 
     constructor(private validator: InputValidator,
                 private roverFactory: RoverFactory,
-                private interfaceFactory: InterfaceFactory) {
+                private interfaceFactory: ReadlineFactory) {
     }
 
     async start() {

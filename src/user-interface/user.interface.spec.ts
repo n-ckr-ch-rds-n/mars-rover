@@ -1,6 +1,6 @@
 import {UserInterface} from "./user.interface";
 import {expect} from "chai";
-import {RoverInterface} from "../interface-factory/rover.interface";
+import {RoverReadline} from "../readline-factory/rover.interface";
 import {InputValidator} from "../input-validator/input-validator";
 import {ValidatorResponse} from "../input-validator/validator.response";
 import {ValidationRequest} from "../input-validator/validation.request";
@@ -8,7 +8,7 @@ import {InputType} from "../input-validator/input.type";
 import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
-import {InterfaceFactory} from "../interface-factory/interface.factory";
+import {ReadlineFactory} from "../readline-factory/interface.factory";
 import {Rover} from "../rover/rover";
 import {Instruction} from "../rover/instruction";
 import {Rotation} from "../orientation-service/rotation";
@@ -18,10 +18,10 @@ import {Plateau} from "../plateau/plateau";
 
 describe("User interface", () => {
     let ui: UserInterface;
-    let mockInterface: RoverInterface;
+    let mockInterface: RoverReadline;
     let mockValidator: InputValidator;
     let mockRoverFactory: RoverFactory;
-    let mockInterfaceFactory: InterfaceFactory;
+    let mockInterfaceFactory: ReadlineFactory;
     let mockValidatorResponse: ValidatorResponse;
     let mockValidationRequest: ValidationRequest;
     let mockInstructions: Instruction[];
@@ -39,7 +39,7 @@ describe("User interface", () => {
                 return mockUserInput;
             },
             close: () => {}
-        } as RoverInterface;
+        } as RoverReadline;
         mockInterfaceFactory = {
             create: () => mockInterface
         };
