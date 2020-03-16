@@ -1,6 +1,6 @@
 import {UserInterface} from "./user.interface";
 import {expect} from "chai";
-import {RoverReadline} from "../readline-factory/rover.interface";
+import {RoverReadline} from "../readline-factory/rover.readline";
 import {InputValidator} from "../input-validator/input-validator";
 import {ValidatorResponse} from "../input-validator/validator.response";
 import {ValidationRequest} from "../input-validator/validation.request";
@@ -8,7 +8,7 @@ import {InputType} from "../input-validator/input.type";
 import {RoverFactory} from "../rover-factory/rover.factory";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
-import {ReadlineFactory} from "../readline-factory/interface.factory";
+import {ReadlineFactory} from "../readline-factory/readline.factory";
 import {Rover} from "../rover/rover";
 import {Instruction} from "../rover/instruction";
 import {Rotation} from "../orientation-service/rotation";
@@ -48,12 +48,15 @@ describe("User interface", () => {
                 mockValidationRequest = request;
                 return mockValidatorResponse;
             }
-        };
+        } as InputValidator;
         mockValidatorResponse = {item: mockPosition, valid: true};
         mockRoverFactory = {
             create: (request: {initialPosition: Position, plateau: Plateau}) => ({
                 position: request.initialPosition,
-                explore: (instructions: Instruction[]) => {receivedInstructions = instructions}
+                explore: (instructions: Instruction[]) => {
+                    receivedInstructions = instructions;
+                    return mockPosition;
+                }
             } as Rover)
         } as RoverFactory;
         ui = new UserInterface(mockValidator, mockRoverFactory, mockInterfaceFactory);
