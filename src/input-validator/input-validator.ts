@@ -30,6 +30,13 @@ export class InputValidator {
         }
     }
 
+    validatePosition(input: string[]): ValidatorResponse {
+        const position = {};
+        if (!this.correctLength(input,3)) {
+            return this.toError(ErrorType.WrongLength);
+        }
+    }
+
     sanitise(input: string): string[] {
         return input
             .replace(/[^0-9a-z]/gi, '')

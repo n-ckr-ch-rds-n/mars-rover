@@ -52,4 +52,11 @@ describe("Input validator", () => {
 
     });
 
+    describe("Position validation", () => {
+
+        it("Marks position as invalid if it is the wrong length", () => {
+            const validated = validator.validatePosition(["1", "3", "N", "4"]);
+        });
+    })
+
 });
