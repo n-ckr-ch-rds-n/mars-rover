@@ -31,11 +31,14 @@ describe("Coordinates service", () =>{
     });
 
     it("Throws an error if the new coordinates exceed the bounds of the plateau", () => {
-        mockPosition = {coordinates: {x: mockX, y: 5}, orientation: Orientation.North};
-        try {
-            coordinatesService.refreshCoordinates(mockPosition)
-        } catch (error) {
-            expect(error.message).to.equal(coordinatesService.outOfBoundsMessage);
+        const mockPositionY = {coordinates: {x: mockX, y: 5}, orientation: Orientation.North};
+        const mockPositionX = {coordinates: {x: 0, y: mockY}, orientation: Orientation.West};
+        for (const position of [mockPositionX, mockPositionY]) {
+            try {
+                coordinatesService.refreshCoordinates(position);
+            } catch (error) {
+                expect(error.message).to.equal(coordinatesService.outOfBoundsMessage);
+            }
         }
     })
 });
