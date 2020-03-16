@@ -1,6 +1,8 @@
 import {ValidatorResponse} from "./validator.response";
 import {ValidationRequest} from "./validation.request";
 import {ErrorType} from "./error.type";
+import {Movement} from "../coordinates-service/movement";
+import {Rotation} from "../orientation-service/rotation";
 
 export class InputValidator {
 
@@ -20,7 +22,9 @@ export class InputValidator {
     }
 
     validateInstructions(input: string[]): ValidatorResponse {
-
+        if (!input.every((item) => this.isRotationOrMovement(item))) {
+            return this.toError(ErrorType.NonPermittedCharacters)
+        }
     }
 
     sanitise(input: string): string[] {
@@ -28,6 +32,11 @@ export class InputValidator {
             .replace(/[^0-9a-z]/gi, '')
             .toUpperCase()
             .split("")
+    }
+
+    private isRotationOrMovement(item: string): boolean {
+        return Object.values(Rotation).includes(item as Rotation)
+            || Object.values(Movement).includes(item as Movement);
     }
 
     private toError(message: string): ValidatorResponse {
