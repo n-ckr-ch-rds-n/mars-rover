@@ -10,6 +10,8 @@ import {Instruction} from "../rover/instruction";
 export class UserInterface {
 
     rover: Rover | undefined;
+    errorColor: string = "\x1b[31m";
+    colorReset: string = "\x1b[0m";
 
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
@@ -41,7 +43,7 @@ export class UserInterface {
         if (initialPosition.valid) {
             return this.roverFactory.create(initialPosition.input as Position)
         } else {
-            console.log(initialPosition.error);
+            console.log(`${this.errorColor}${initialPosition.error}${this.colorReset}`);
         }
     }
 
