@@ -6,13 +6,21 @@ import {Rotation} from "../orientation-service/rotation";
 import {Instruction} from "../rover/instruction";
 import {Position} from "../rover/position";
 import {Orientation} from "../orientation-service/orientation";
+import {InputType} from "./input.type";
 
 export class InputValidator {
 
+    validatorsByType: Record<InputType, (input: string[]) => ValidatorResponse> = {
+        [InputType.Plateau]: (input: string[]) => this.validateCoordinates(input),
+        [InputType.Instructions]: (input: string[]) => this.validateInstructions(input),
+        [InputType.InitialPosition]: (input: string[]) => this.validatePosition(input)
+    };
+
     constructor() {}
 
-    validate(request: ValidationRequest): ValidatorResponse{
-        return {valid: false, error: "ERROR"}
+    validate(request: ValidationRequest): ValidatorResponse {
+        const sanitisedInput = this.sanitise(request.input);
+        return this.validatorsByType[request.type](sanitisedInput);
     }
 
     validateCoordinates(input: string[]): ValidatorResponse {
@@ -39,7 +47,7 @@ export class InputValidator {
                 ? this.toError(ErrorType.InvalidCoordinates)
                 : !Object.values(Orientation).includes(orientation)
                     ? this.toError(ErrorType.InvalidOrientation)
-                    : {valid: true, item: {coordinates: validatedCoordinates.item, orientation}}
+                    : {valid: true, item: {coordinates: validatedCoordinates.item, orientation} as Position}
     }
 
     sanitise(input: string): string[] {
