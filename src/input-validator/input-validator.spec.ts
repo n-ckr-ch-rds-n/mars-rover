@@ -9,8 +9,9 @@ describe("Input validator", () => {
         validator = new InputValidator();
     });
 
-    it("Validates input", () => {
-        const response = validator.validate({input: "foobar", type: InputType.Instructions});
-        expect(true).to.equal(true);
+    it("Sanitises string input", () => {
+        const sanitised = validator.sanitise("M J , 3  %^&T");
+        const expected = ["M", "J", "3", "T"];
+        expect(sanitised).to.deep.equal(expected, "Input was not sanitised correctly");
     });
 });
