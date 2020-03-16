@@ -3,6 +3,7 @@ import {Orientation} from "../orientation-service/orientation";
 import {Position} from "../rover/position";
 import {expect} from "chai";
 import {Plateau} from "../plateau/plateau";
+import {Coordinates} from "./coordinates";
 
 describe("Coordinates service", () =>{
     let coordinatesService: CoordinatesService;
@@ -14,7 +15,10 @@ describe("Coordinates service", () =>{
     beforeEach(() => {
         mockX = 1;
         mockY = 3;
-        mockPlateau = {area: {upperRight: {x: 5, y: 5}, bottomLeft: {x: 0, y: 0}}};
+        mockPlateau = {
+            area: {upperRight: {x: 5, y: 5}, bottomLeft: {x: 0, y: 0}},
+            outOfBounds: (coords: Coordinates) => false
+        };
         coordinatesService = new CoordinatesService(mockPlateau);
     });
 
@@ -30,15 +34,4 @@ describe("Coordinates service", () =>{
         expect(newCoordinates.x).to.equal(mockX + 1, "X-axis value was not increased by 1");
     });
 
-    it("Throws an error if the new coordinates exceed the bounds of the plateau", () => {
-        const mockPositionY = {coordinates: {x: mockX, y: 5}, orientation: Orientation.North};
-        const mockPositionX = {coordinates: {x: 0, y: mockY}, orientation: Orientation.West};
-        for (const position of [mockPositionX, mockPositionY]) {
-            try {
-                coordinatesService.refreshCoordinates(position);
-            } catch (error) {
-                expect(error.message).to.equal(coordinatesService.outOfBoundsMessage);
-            }
-        }
-    })
 });

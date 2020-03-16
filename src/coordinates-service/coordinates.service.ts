@@ -16,7 +16,7 @@ export class CoordinatesService {
             ...currentPosition.coordinates,
             [affectedAxis]: newValue
         };
-        if (this.isInBounds(refreshedCoordinates)) {
+        if (!this.plateau.outOfBounds(refreshedCoordinates)) {
             return refreshedCoordinates
         } else {
             throw new Error(this.outOfBoundsMessage);
@@ -31,11 +31,4 @@ export class CoordinatesService {
         return [Orientation.North, Orientation.East].includes(orientation) ? 1 : -1;
     }
 
-    private isInBounds(coordinates: Coordinates): boolean {
-        const plateauRight = this.plateau.area.upperRight;
-        const plateauLeft = this.plateau.area.bottomLeft;
-        return coordinates.x > plateauRight.x || coordinates.y > plateauRight.y
-            ? false
-            : !(coordinates.x < plateauLeft.x || coordinates.y < plateauLeft.y)
-    }
 }
