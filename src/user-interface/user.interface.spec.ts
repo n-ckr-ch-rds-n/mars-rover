@@ -13,6 +13,7 @@ import {Rover} from "../rover/rover";
 import {Instruction} from "../rover/instruction";
 import {Rotation} from "../orientation-service/rotation";
 import {Movement} from "../coordinates-service/movement";
+import {Coordinates} from "../coordinates-service/coordinates"
 
 describe("User interface", () => {
     let ui: UserInterface;
@@ -24,6 +25,7 @@ describe("User interface", () => {
     let mockValidationRequest: ValidationRequest;
     let mockInstructions: Instruction[];
     let receivedInstructions: Instruction[];
+    let mockCoordinates: Coordinates;
     let mockPosition: Position;
     let mockUserInput: string;
     let consoleOutput: string;
@@ -63,8 +65,12 @@ describe("User interface", () => {
         }
     });
 
-    it("Initialises a plateau if plateau input is valid", () => {
-        const plateau = ui.initialisePlateau();
+    it("Initialises a plateau if plateau input is valid", async () => {
+        mockCoordinates = {x: 3, y: 5};
+        mockValidatorResponse.item = mockCoordinates;
+        const plateau = await ui.initialisePlateau();
+        expect(plateau!.area.upperRight).to.deep.equal(mockCoordinates,
+            "Plateau should have been initialised with given coordinates")
     });
 
     it("Creates a rover if initial position input is valid", async () => {
