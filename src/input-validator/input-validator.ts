@@ -15,7 +15,7 @@ export class InputValidator {
     }
 
     validateCoordinates(input: string[]): ValidatorResponse {
-        if (input.length !== 2) {
+        if (!this.correctLength(input, 2)) {
             return this.toError(this.errors[ErrorType.WrongLength]);
         }
     }
@@ -29,5 +29,9 @@ export class InputValidator {
 
     toError(message: string): ValidatorResponse {
         return {valid: false, error: message};
+    }
+
+    correctLength(input: string[], length: number): boolean {
+        return input.length === length;
     }
 }
