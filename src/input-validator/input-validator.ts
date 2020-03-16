@@ -19,6 +19,10 @@ export class InputValidator {
                 : {valid: true, item: {x: coords[0], y: coords[1]}}
     }
 
+    validateInstructions(input: string[]): ValidatorResponse {
+
+    }
+
     sanitise(input: string): string[] {
         return input
             .replace(/[^0-9a-z]/gi, '')

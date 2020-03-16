@@ -33,7 +33,14 @@ describe("Input validator", () => {
             expect(validated.valid).to.equal(true, "Input should have been marked valid");
         });
 
+    });
+
+    describe("Instruction validation", () => {
+
+        it("Marks input as invalid if it contains non-orientation/rotation characters", () => {
+            const validated = validator.validateInstructions(["T", "H", "L"]);
+            expect(validated.valid).to.equal(false, "Input should have been marked invalid");
+        })
+
     })
-
-
 });
