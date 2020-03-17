@@ -1,9 +1,9 @@
 # Mars Rover
 
 Many thanks to Thoughtworks for giving me the opportunity to attempt this tech test.
-To run the app, first make sure you have npm and Node.js installed, then run `npm install` in this repo to install the 
-dependencies, followed by `npm run start`.
-The `npm run test` command will run the tests.
+To run the app, first make sure you have npm and Node.js 
+[installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm), then run `npm install` in this repo to 
+install the dependencies, followed by `npm run start`. The `npm run test` command will run the tests.
 
 ## Approach
 - I decided to write my solution in [TypeScript](https://www.typescriptlang.org/), a superset of JavaScript that allows 
