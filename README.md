@@ -21,3 +21,4 @@ class and creating new classes and interfaces as and when the single responsibil
 - I have tried to follow the principles of clean code, and to make my code self-documenting (except in the case of the
  readline extension, which I thought justified a comment).
 
+![mars-rover](./src/assets/mars-rover.jpg)
