@@ -18,7 +18,7 @@ export class UserInterface {
     consoleOutput: Record<InputType, string> = {
         [InputType.Instructions]: "Please input Rover navigation instructions. Permitted characters: L, R, M\n",
         [InputType.InitialPosition]: "Please input initial Rover coordinates. Format: x y orientation, e.g. '3 5 N'\n",
-        [InputType.Plateau]: "Please proved the upper right coordinates for the plateau. Format: x y, e.g. '5 5'\n"
+        [InputType.Plateau]: "Please provide the upper right coordinates for the plateau. Format: x y, e.g. '5 5'\n"
     };
 
     constructor(private validator: InputValidator,
